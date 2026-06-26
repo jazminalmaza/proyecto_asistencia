@@ -1,0 +1,51 @@
+body{
+    font-family: Arial, sans-serif;
+    text-align:center;
+    font-size:16px;
+}
+
+h1{
+    font-size:32px;
+    margin-top:20px;
+}
+
+table{
+    margin:auto;
+    border-collapse:collapse;
+    width:90%;
+}
+
+th, td{
+    border:1px solid black;
+    padding:10px;
+}
+
+th{
+    background-color:#0077cc;
+    color:white;
+}
+
+.leyenda{
+    margin:20px;
+    font-size:16px;
+}
+
+.presente{
+    color:green;
+    font-weight:bold;
+}
+
+.tarde{
+    color:goldenrod;
+    font-weight:bold;
+}
+
+.ausente{
+    color:red;
+    font-weight:bold;
+}
+
+.adelantado{
+    color:orange;
+    font-weight:bold;
+}

@@ -1,0 +1,174 @@
+<?php
+include("conexion.php");
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ver Asistencias</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+
+<h1>Listado de Asistencias</h1>
+<form method="GET">
+
+    Fecha:
+
+    <input
+        type="date"
+        name="fecha"
+    >
+
+    <button type="submit">
+        Buscar
+    </button>
+
+</form>
+
+<br>
+<div class="leyenda">
+
+    <span class="presente">
+        ● Presente
+    </span>
+
+    <span class="tarde">
+        ● Tarde
+    </span>
+
+    <span class="ausente">
+        ● Ausente
+    </span>
+
+    <span class="adelantado">
+        ● Adelantado
+    </span>
+
+</div>
+
+<br>
+<table>
+
+<tr>
+    <th>Docente</th>
+    <th>Materia</th>
+    <th>Entrada</th>
+    <th>Salida</th>
+    <th>Estado</th>
+    <th>Acción</th>
+</tr>
+<?php
+if(isset($_GET['fecha']) && $_GET['fecha']!=""){
+
+    $fecha = $_GET['fecha'];
+
+    $sql = "
+    SELECT
+    d.nombre,
+    d.apellido,
+    d.materia,
+    a.id,
+    a.entrada,
+    a.salida,
+    a.estado
+    FROM asistencias a
+    INNER JOIN docente d
+    ON a.docente_id = d.id
+    WHERE a.fecha='$fecha'
+    ORDER BY d.apellido
+    ";
+
+}else{
+
+    $sql = "
+    SELECT
+    d.nombre,
+    d.apellido,
+    d.materia,
+    a.id,
+    a.entrada,
+    a.salida,
+    a.estado
+    FROM asistencias a
+    INNER JOIN docente d
+    ON a.docente_id = d.id
+    ORDER BY a.fecha DESC
+    ";
+
+}
+
+
+$resultado = mysqli_query($conexion,$sql);
+
+while($fila = mysqli_fetch_assoc($resultado)){
+?>
+
+<tr>
+
+<td>
+<?php echo $fila['nombre']." ".$fila['apellido']; ?>
+</td>
+
+<td>
+<?php echo $fila['materia']; ?>
+</td>
+
+
+
+<td><?php echo $fila['entrada']; ?></td>
+
+<td><?php echo $fila['salida']; ?></td>
+
+<td>
+
+<?php
+
+if($fila['estado']=="Presente"){
+
+    echo "<span style='color:green;font-weight:bold;'>
+    Presente
+    </span>";
+
+}elseif($fila['estado']=="Tarde"){
+
+    echo "<span style='color:goldenrod;font-weight:bold;'>
+    Tarde
+    </span>";
+
+}elseif($fila['estado']=="Ausente"){
+
+    echo "<span style='color:red;font-weight:bold;'>
+    Ausente
+    </span>";
+
+}elseif($fila['estado']=="Adelantado"){
+
+    echo "<span style='color:orange;font-weight:bold;'>
+    Adelantado
+    </span>";
+
+}
+
+?>
+
+</td>
+
+<td>
+<a href="editar_asistencia.php?id=<?php echo $fila['id']; ?>">
+Editar
+</a>
+
+</td>
+
+</tr>
+
+<?php
+}
+?>
+
+</table>
+
+</body>
+</html>
