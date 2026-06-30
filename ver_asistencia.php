@@ -52,6 +52,7 @@ include("conexion.php");
 <table>
 
 <tr>
+    <th>Fecha</th>
     <th>Docente</th>
     <th>Materia</th>
     <th>Entrada</th>
@@ -70,6 +71,7 @@ if(isset($_GET['fecha']) && $_GET['fecha']!=""){
     d.apellido,
     d.materia,
     a.id,
+    a.fecha,
     a.entrada,
     a.salida,
     a.estado
@@ -88,6 +90,7 @@ if(isset($_GET['fecha']) && $_GET['fecha']!=""){
     d.apellido,
     d.materia,
     a.id,
+    a.fecha,
     a.entrada,
     a.salida,
     a.estado
@@ -106,6 +109,9 @@ while($fila = mysqli_fetch_assoc($resultado)){
 ?>
 
 <tr>
+<td>
+<?php echo date("d/m/Y", strtotime($fila['fecha'])); ?>
+</td>
 
 <td>
 <?php echo $fila['nombre']." ".$fila['apellido']; ?>
