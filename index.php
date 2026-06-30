@@ -53,9 +53,6 @@
             Ver Asistencias
         </a>
 
-        <a href="control_asistencia.php">
-            Control de Asistencia
-        </a>
 
     </div>
 
