@@ -19,8 +19,12 @@ if(isset($_POST['guardar'])){
         WHERE id='$id'"
     );
 
+<<<<<<< HEAD
    header("Location: ver_asistencia.php");
 exit;
+=======
+    echo "<h3>Asistencia actualizada</h3>";
+>>>>>>> 9f117a7 (primer commit jijijija)
 }
 
 $sql = "
