@@ -19,7 +19,8 @@ if(isset($_POST['guardar'])){
         WHERE id='$id'"
     );
 
-    echo "<h3>Asistencia actualizada</h3>";
+   header("Location: ver_asistencia.php");
+exit;
 }
 
 $sql = "
