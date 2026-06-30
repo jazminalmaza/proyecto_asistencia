@@ -22,7 +22,6 @@ if(isset($_POST['guardar'])){
    header("Location: ver_asistencia.php");
 exit;
 }
-
 $sql = "
 SELECT
 a.*,
