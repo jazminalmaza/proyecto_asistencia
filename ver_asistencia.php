@@ -12,14 +12,11 @@ include("conexion.php");
 <body>
 <?php include("navbar.php"); ?>
 <h1>Listado de Asistencias</h1>
-<form method="GET">
+<form method="GET" class="buscar-fecha">
 
     Fecha:
 
-    <input
-        type="date"
-        name="fecha"
-    >
+    <input type="date" name="fecha" >
 
     <button type="submit">
         Buscar
