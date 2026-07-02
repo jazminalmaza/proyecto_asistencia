@@ -42,6 +42,7 @@ $fila = mysqli_fetch_assoc($resultado);
 <html>
 <head>
     <title>Editar Asistencia</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
