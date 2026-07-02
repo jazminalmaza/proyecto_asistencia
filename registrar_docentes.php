@@ -27,7 +27,7 @@ if(isset($_POST['guardar'])){
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<?php include("navbar.php"); ?>
 <h1>Registrar Docente</h1>
 
 <form method="POST">

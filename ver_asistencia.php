@@ -10,7 +10,7 @@ include("conexion.php");
    
 </head>
 <body>
-
+<?php include("navbar.php"); ?>
 <h1>Listado de Asistencias</h1>
 <form method="GET">
 

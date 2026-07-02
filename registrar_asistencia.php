@@ -106,7 +106,7 @@ if(mysqli_num_rows($buscar_asistencia)==0){
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<?php include("navbar.php"); ?>
 <h1>Registrar Asistencia</h1>
 
 <form method="POST">
