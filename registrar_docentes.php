@@ -29,6 +29,8 @@ if(isset($_POST['guardar'])){
 <body>
 <?php include("navbar.php"); ?>
 <h1>Registrar Docente</h1>
+<div class="contenedor">
+
 
 <form method="POST">
 
@@ -64,6 +66,6 @@ if(isset($_POST['guardar'])){
     </button>
 
 </form>
-
+</div>
 </body>
 </html>

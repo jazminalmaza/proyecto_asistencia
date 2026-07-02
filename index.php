@@ -3,37 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Sistema de Asistencia</title>
-    <link rel="stylesheet" href="style/style.css">
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            text-align: center;
-        }
+    <link rel="stylesheet" href="style.css">
 
-        h1{
-            margin-top: 50px;
-        }
-
-        .menu{
-            margin-top: 40px;
-        }
-
-        a{
-            display: block;
-            width: 250px;
-            margin: 15px auto;
-            padding: 15px;
-            background: #0077cc;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-        }
-
-        a:hover{
-            background: #005fa3;
-        }
-    </style>
 </head>
 <body>
 
