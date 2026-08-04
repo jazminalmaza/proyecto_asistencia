@@ -32,39 +32,112 @@ if(isset($_POST['guardar'])){
 <div class="contenedor">
 
 
-<form method="POST">
+<div class="formulario">
 
-    Legajo:
-    <input type="text" name="legajo"><br><br>
+    <form method="POST">
 
-    Nombre:
-    <input type="text" name="nombre"><br><br>
+        <div class="fila">
 
-    Apellido:
-    <input type="text" name="apellido"><br><br>
+            <div class="campo">
+                <label>Nombre</label>
+                <input type="text" name="nombre">
+            </div>
 
-    Cargo:
-    <input type="text" name="cargo"><br><br>
+            <div class="campo">
+                <label>Apellido</label>
+                <input type="text" name="apellido">
+            </div>
 
-    Materia:
-    <input type="text" name="materia"><br><br>
+        </div>
 
-    ID Huella:
-    <input type="number" name="id_huella"><br><br>
+        <div class="fila">
 
-    Turno:
-    <select name="turno_id">
-        <option value="1">Mañana</option>
-        <option value="2">Tarde</option>
-        <option value="3">Noche</option>
-    </select>
+            <div class="campo">
+                <label>DNI</label>
+                <input type="text" name="dni">
+            </div>
 
-    <br><br>
+            <div class="campo">
+                <label>Teléfono</label>
+                <input type="text" name="telefono">
+            </div>
 
-    <button type="submit" name="guardar">
-        Guardar
-    </button>
+        </div>
 
+        <div class="fila">
+
+            <div class="campo">
+                <label>Email</label>
+                <input type="email" name="email">
+            </div>
+
+            <div class="campo">
+                <label>Código de huella</label>
+                <input type="number" name="id_huella">
+            </div>
+
+        </div>
+        <h2>Horarios</h2>
+
+<div class="fila">
+
+    <div class="campo">
+        <label>Materia</label>
+        <input type="text" name="materia[]">
+    </div>
+
+    <div class="campo">
+        <label>Curso</label>
+        <select name="curso[]">
+            <option>1°</option>
+            <option>2°</option>
+            <option>3°</option>
+            <option>4°</option>
+            <option>5°</option>
+            <option>6°</option>
+        </select>
+    </div>
+
+    <div class="campo">
+        <label>División</label>
+        <select name="division[]">
+            <option>1°</option>
+            <option>2°</option>
+            <option>3°</option>
+            <option>4°</option>
+            <option>5°</option>
+            <option>6°</option>
+        </select>
+    </div>
+
+</div>
+
+<div class="fila">
+
+    <div class="campo">
+        <label>Entrada</label>
+        <input type="time" name="entrada[]">
+    </div>
+
+    <div class="campo">
+        <label>Salida</label>
+        <input type="time" name="salida[]">
+    </div>
+
+</div>
+
+<button type="button">+ Agregar horario</button>
+
+<br><br>
+
+<button type="submit" name="guardar">
+    Guardar docente
+</button>
+
+
+    </form>
+
+</div>
 </form>
 </div>
 </body>
