@@ -12,10 +12,7 @@ if(isset($_POST['guardar'])){
     mysqli_query(
         $conexion,
         "UPDATE asistencia
-        SET
-        hora_ingreso='$entrada',
-        hora_egreso='$salida',
-        estado='$estado'
+        SET hora_ingreso='$entrada', hora_egreso='$salida', estado='$estado'
         WHERE id_asistencia='$id' "
     );
 
@@ -23,16 +20,11 @@ if(isset($_POST['guardar'])){
    exit;
 }
 
-$sql = "
-SELECT
-a.*,
-d.nombre,
-d.apellido
-FROM asistencia a
-INNER JOIN docentes d
-ON a.docentes_id=d.id
-WHERE a.id='$id'
-";
+$sql = "SELECT a.*, d.nombre, d.apellido
+            FROM asistencia a
+            INNER JOIN docentes d
+            ON a.docentes_id=d.id
+            WHERE a.id='$id' ";
 
 $resultado = mysqli_query($conexion,$sql);
 

@@ -60,36 +60,16 @@ if(isset($_GET['fecha']) && $_GET['fecha']!=""){
 
     $fecha = $_GET['fecha'];
 
-    $sql = "
-    SELECT
-    id_asistencia,
-    fecha,
-    nombre,
-    apellido,
-    materia,
-    hora_ingreso,
-    hora_egreso,
-    estado
-    FROM asistencia
-    WHERE fecha='$fecha'
-    ORDER BY nombre_docente
-    ";
+    $sql = "SELECT id_asistencia, fecha, nombre_docente, materia, hora_ingreso, hora_egreso, estado
+                FROM asistencia
+                WHERE fecha='$fecha'
+                ORDER BY nombre_docente";
 
 }else{
 
-    $sql = "
-    SELECT
-    id_asistencia,
-    fecha,
-    nombre,
-    apellido,
-    materia,
-    hora_ingreso,
-    hora_egreso,
-    estado
-    FROM asistencia
-    ORDER BY fecha DESC
-    ";
+    $sql = "SELECT id_asistencia, fecha, nombre_docente, materia, hora_ingreso, hora_egreso, estado
+                FROM asistencia
+                ORDER BY fecha DESC";
 
 }
 
@@ -102,7 +82,7 @@ while($fila = mysqli_fetch_assoc($resultado)){
 <tr>
 <td><?php echo date("d/m/Y", strtotime($fila['fecha'])); ?></td>
 
-<td><?php echo $fila['nombre']." ".$fila['apellido']; ?></td>
+<td><?php echo $fila['nombre_docente']; ?></td>
 
 <td><?php echo $fila['materia']; ?></td>
 
