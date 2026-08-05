@@ -35,8 +35,9 @@ if(isset($_POST['guardar'])){
 <div class="contenedor">
 
 
-<form method="POST">
+<div class="formulario">
 
+<<<<<<< HEAD
     DNI:
     <input type="number" name="dni" required><br><br>
 
@@ -53,7 +54,112 @@ if(isset($_POST['guardar'])){
     <input type="email" name="email" required><br><br>
 
     <button type="submit" name="guardar">Guardar</button><br><br>
+=======
+    <form method="POST">
 
+        <div class="fila">
+
+            <div class="campo">
+                <label>Nombre</label>
+                <input type="text" name="nombre">
+            </div>
+
+            <div class="campo">
+                <label>Apellido</label>
+                <input type="text" name="apellido">
+            </div>
+
+        </div>
+
+        <div class="fila">
+
+            <div class="campo">
+                <label>DNI</label>
+                <input type="text" name="dni">
+            </div>
+
+            <div class="campo">
+                <label>Teléfono</label>
+                <input type="text" name="telefono">
+            </div>
+
+        </div>
+>>>>>>> 7e1591432d9252be3518b2f45b060c80dcdbee0a
+
+        <div class="fila">
+
+            <div class="campo">
+                <label>Email</label>
+                <input type="email" name="email">
+            </div>
+
+            <div class="campo">
+                <label>Código de huella</label>
+                <input type="number" name="id_huella">
+            </div>
+
+        </div>
+        <h2>Horarios</h2>
+
+<div class="fila">
+
+    <div class="campo">
+        <label>Materia</label>
+        <input type="text" name="materia[]">
+    </div>
+
+    <div class="campo">
+        <label>Curso</label>
+        <select name="curso[]">
+            <option>1°</option>
+            <option>2°</option>
+            <option>3°</option>
+            <option>4°</option>
+            <option>5°</option>
+            <option>6°</option>
+        </select>
+    </div>
+
+    <div class="campo">
+        <label>División</label>
+        <select name="division[]">
+            <option>1°</option>
+            <option>2°</option>
+            <option>3°</option>
+            <option>4°</option>
+            <option>5°</option>
+            <option>6°</option>
+        </select>
+    </div>
+
+</div>
+
+<div class="fila">
+
+    <div class="campo">
+        <label>Entrada</label>
+        <input type="time" name="entrada[]">
+    </div>
+
+    <div class="campo">
+        <label>Salida</label>
+        <input type="time" name="salida[]">
+    </div>
+
+</div>
+
+<button type="button">+ Agregar horario</button>
+
+<br><br>
+
+<button type="submit" name="guardar">
+    Guardar docente
+</button>
+
+
+    </form>
+
+</div>
 </form>
 </div>
 </body>
