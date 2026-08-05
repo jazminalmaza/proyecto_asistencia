@@ -1,4 +1,3 @@
-
 <?php
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 include("conexion.php");
@@ -7,8 +6,7 @@ if(isset($_POST['registrar'])){
 
    $codigo = $_POST['id_huella'];
 
-$buscar = mysqli_query($conexion,
-"SELECT * FROM docente WHERE codigo='$codigo'");
+    $buscar = mysqli_query($conexion, "SELECT * FROM docentes WHERE codigo='$codigo'");
 
     if(mysqli_num_rows($buscar) > 0){
 
@@ -113,20 +111,11 @@ if(mysqli_num_rows($buscar_asistencia)==0){
 
     ID Huella:
 
-    <input
-        type="number"
-        name="id_huella"
-        required
-    >
+    <input type="number" name="id_huella" required>
 
     <br><br>
 
-    <button
-        type="submit"
-        name="registrar"
-    >
-        Registrar huella
-    </button>
+    <button type="submit" name="registrar"> Registrar huella </button>
 
 </form>
 

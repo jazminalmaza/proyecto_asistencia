@@ -3,20 +3,23 @@ include("conexion.php");
 
 if(isset($_POST['guardar'])){
 
-    $legajo = $_POST['legajo'];
+    $id_docente = $_POST['id_docente'];
+    $dni = $_POST['dni'];
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
-    $cargo = $_POST['cargo'];
-    $materia = $_POST['materia'];
-    $id_huella = $_POST['id_huella'];
-    $turno_id = $_POST['turno_id'];
-
-    $sql = "INSERT INTO docente
-    (legajo,nombre,apellido,cargo,materia,id_huella,turno_id)
+    $teléfono = $_POST['teléfono'];
+    $email = $_POST['email'];
+    
+    $sql = "INSERT INTO docentes
+    (id_docente, DNI , nombre, apellido, teléfono, email)
     VALUES
-    ('$legajo','$nombre','$apellido','$cargo','$materia','$id_huella','$turno_id')";
+    ( '$id_docente' , '$dni' , '$nombre' , '$apellido' , '$teléfono' , '$email' )";
 
-    mysqli_query($conexion,$sql);
+    if(mysqli_query($conexion, $sql)){
+        echo "<p>Docente registrado con éxito.</p>";
+    } else {
+        echo "<p>Error al guardar: " . mysqli_error($conexion) . "</p>";
+    }
 }
 ?>
 
@@ -34,36 +37,22 @@ if(isset($_POST['guardar'])){
 
 <form method="POST">
 
-    Legajo:
-    <input type="text" name="legajo"><br><br>
+    DNI:
+    <input type="number" name="dni" required><br><br>
 
     Nombre:
-    <input type="text" name="nombre"><br><br>
+    <input type="text" name="nombre" required><br><br>
 
     Apellido:
-    <input type="text" name="apellido"><br><br>
+    <input type="text" name="apellido" required><br><br>
 
-    Cargo:
-    <input type="text" name="cargo"><br><br>
+    Teléfono:
+    <input type="number" name="telefono" required><br><br>
 
-    Materia:
-    <input type="text" name="materia"><br><br>
+    Email:
+    <input type="email" name="email" required><br><br>
 
-    ID Huella:
-    <input type="number" name="id_huella"><br><br>
-
-    Turno:
-    <select name="turno_id">
-        <option value="1">Mañana</option>
-        <option value="2">Tarde</option>
-        <option value="3">Noche</option>
-    </select>
-
-    <br><br>
-
-    <button type="submit" name="guardar">
-        Guardar
-    </button>
+    <button type="submit" name="guardar">Guardar</button><br><br>
 
 </form>
 </div>

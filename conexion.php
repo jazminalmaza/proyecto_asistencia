@@ -4,7 +4,7 @@ $conexion = mysqli_connect(
     "localhost",
     "root",
     "",
-    "sistema_huellas"
+    "asistencia_docente"
 );
 
 if(!$conexion){

@@ -11,25 +11,26 @@ if(isset($_POST['guardar'])){
 
     mysqli_query(
         $conexion,
-        "UPDATE asistencias
+        "UPDATE asistencia
         SET
-        entrada='$entrada',
-        salida='$salida',
+        hora_ingreso='$entrada',
+        hora_egreso='$salida',
         estado='$estado'
-        WHERE id='$id'"
+        WHERE id_asistencia='$id' "
     );
 
    header("Location: ver_asistencia.php");
-exit;
+   exit;
 }
+
 $sql = "
 SELECT
 a.*,
 d.nombre,
 d.apellido
-FROM asistencias a
-INNER JOIN docente d
-ON a.docente_id=d.id
+FROM asistencia a
+INNER JOIN docentes d
+ON a.docentes_id=d.id
 WHERE a.id='$id'
 ";
 
@@ -60,21 +61,13 @@ echo $fila['nombre']." ".$fila['apellido'];
 
     Entrada:
 
-    <input
-        type="time"
-        name="entrada"
-        value="<?php echo $fila['entrada']; ?>"
-    >
+    <input type="time" name="entrada" value="<?php echo $fila['hora_ingreso']; ?>">
 
     <br><br>
 
     Salida:
 
-    <input
-        type="time"
-        name="salida"
-        value="<?php echo $fila['salida']; ?>"
-    >
+    <input type="time" name="salida" value="<?php echo $fila['hora_egreso']; ?>">
 
     <br><br>
 
@@ -82,27 +75,19 @@ echo $fila['nombre']." ".$fila['apellido'];
 
     <select name="estado">
 
-        <option
-        <?php if($fila['estado']=="Presente") echo "selected"; ?>
-        >
+        <option <?php if($fila['estado']=="Presente") echo "selected"; ?>>
         Presente
         </option>
 
-        <option
-        <?php if($fila['estado']=="Tarde") echo "selected"; ?>
-        >
+        <option <?php if($fila['estado']=="Tarde") echo "selected"; ?>>
         Tarde
         </option>
 
-        <option
-        <?php if($fila['estado']=="Ausente") echo "selected"; ?>
-        >
+        <option <?php if($fila['estado']=="Ausente") echo "selected"; ?>>
         Ausente
         </option>
 
-        <option
-        <?php if($fila['estado']=="Adelantado") echo "selected"; ?>
-        >
+        <option <?php if($fila['estado']=="Adelantado") echo "selected"; ?>>
         Adelantado
         </option>
 
@@ -110,12 +95,7 @@ echo $fila['nombre']." ".$fila['apellido'];
 
     <br><br>
 
-    <button
-        type="submit"
-        name="guardar"
-    >
-        Guardar
-    </button>
+    <button type="submit" name="guardar"> Guardar </button>
 
 </form>
 

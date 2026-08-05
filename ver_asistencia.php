@@ -18,9 +18,7 @@ include("conexion.php");
 
     <input type="date" name="fecha" >
 
-    <button type="submit">
-        Buscar
-    </button>
+    <button type="submit">Buscar</button>
 
 </form>
 
@@ -64,37 +62,33 @@ if(isset($_GET['fecha']) && $_GET['fecha']!=""){
 
     $sql = "
     SELECT
-    d.nombre,
-    d.apellido,
-    d.materia,
-    a.id,
-    a.fecha,
-    a.entrada,
-    a.salida,
-    a.estado
-    FROM asistencias a
-    INNER JOIN docente d
-    ON a.docente_id = d.id
-    WHERE a.fecha='$fecha'
-    ORDER BY d.apellido
+    id_asistencia,
+    fecha,
+    nombre,
+    apellido,
+    materia,
+    hora_ingreso,
+    hora_egreso,
+    estado
+    FROM asistencia
+    WHERE fecha='$fecha'
+    ORDER BY nombre_docente
     ";
 
 }else{
 
     $sql = "
     SELECT
-    d.nombre,
-    d.apellido,
-    d.materia,
-    a.id,
-    a.fecha,
-    a.entrada,
-    a.salida,
-    a.estado
-    FROM asistencias a
-    INNER JOIN docente d
-    ON a.docente_id = d.id
-    ORDER BY a.fecha DESC
+    id_asistencia,
+    fecha,
+    nombre,
+    apellido,
+    materia,
+    hora_ingreso,
+    hora_egreso,
+    estado
+    FROM asistencia
+    ORDER BY fecha DESC
     ";
 
 }
@@ -106,26 +100,18 @@ while($fila = mysqli_fetch_assoc($resultado)){
 ?>
 
 <tr>
-<td>
-<?php echo date("d/m/Y", strtotime($fila['fecha'])); ?>
-</td>
+<td><?php echo date("d/m/Y", strtotime($fila['fecha'])); ?></td>
 
-<td>
-<?php echo $fila['nombre']." ".$fila['apellido']; ?>
-</td>
+<td><?php echo $fila['nombre']." ".$fila['apellido']; ?></td>
 
-<td>
-<?php echo $fila['materia']; ?>
-</td>
+<td><?php echo $fila['materia']; ?></td>
 
+<td><?php echo $fila['hora_ingreso']; ?></td>
 
+<td><?php echo $fila['hora_egreso']; ?></td>
 
-<td><?php echo $fila['entrada']; ?></td>
-
-<td><?php echo $fila['salida']; ?></td>
 
 <td>
-
 <?php
 
 if($fila['estado']=="Presente"){
@@ -155,15 +141,9 @@ if($fila['estado']=="Presente"){
 }
 
 ?>
-
 </td>
 
-<td>
-<a href="editar_asistencia.php?id=<?php echo $fila['id']; ?>">
-Editar
-</a>
-
-</td>
+<td><a href="editar_asistencia.php?id=<?php echo $fila['id_asistencia']; ?>">Editar</a></td>
 
 </tr>
 
