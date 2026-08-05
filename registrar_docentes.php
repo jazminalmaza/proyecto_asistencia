@@ -3,17 +3,16 @@ include("conexion.php");
 
 if(isset($_POST['guardar'])){
 
-    $id_docente = $_POST['id_docente'];
     $dni = $_POST['dni'];
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
-    $teléfono = $_POST['teléfono'];
+    $telefono = $_POST['telefono'];
     $email = $_POST['email'];
     
     $sql = "INSERT INTO docentes
-    (id_docente, DNI , nombre, apellido, teléfono, email)
+    (DNI , nombre, apellido, teléfono, email)
     VALUES
-    ( '$id_docente' , '$dni' , '$nombre' , '$apellido' , '$teléfono' , '$email' )";
+    ( '$dni' , '$nombre' , '$apellido' , '$telefono' , '$email' )";
 
     if(mysqli_query($conexion, $sql)){
         echo "<p>Docente registrado con éxito.</p>";
@@ -37,24 +36,6 @@ if(isset($_POST['guardar'])){
 
 <div class="formulario">
 
-<<<<<<< HEAD
-    DNI:
-    <input type="number" name="dni" required><br><br>
-
-    Nombre:
-    <input type="text" name="nombre" required><br><br>
-
-    Apellido:
-    <input type="text" name="apellido" required><br><br>
-
-    Teléfono:
-    <input type="number" name="telefono" required><br><br>
-
-    Email:
-    <input type="email" name="email" required><br><br>
-
-    <button type="submit" name="guardar">Guardar</button><br><br>
-=======
     <form method="POST">
 
         <div class="fila">
@@ -84,7 +65,6 @@ if(isset($_POST['guardar'])){
             </div>
 
         </div>
->>>>>>> 7e1591432d9252be3518b2f45b060c80dcdbee0a
 
         <div class="fila">
 
@@ -155,9 +135,6 @@ if(isset($_POST['guardar'])){
 <button type="submit" name="guardar">
     Guardar docente
 </button>
-
-
-    </form>
 
 </div>
 </form>
