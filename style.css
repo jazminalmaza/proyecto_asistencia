@@ -10,7 +10,11 @@ body{
 
 .navbar {
     background-color: #004fb6;
+<<<<<<< HEAD
     padding: 15px 50px;
+=======
+    padding: 10px 40px;
+>>>>>>> 25a080709bca478e6155f49e30df650173faeb15
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,13 +24,22 @@ body{
 .nav-brand {
     display: flex;
     align-items: center;
+<<<<<<< HEAD
     gap: 15px;
+=======
+    gap: 12px;
+>>>>>>> 25a080709bca478e6155f49e30df650173faeb15
     color: white;
 }
 
 .nav-logo {
+<<<<<<< HEAD
     width: 45px;
     height: 45px;
+=======
+    width: 40px;
+    height: 40px;
+>>>>>>> 25a080709bca478e6155f49e30df650173faeb15
     object-fit: contain;
 }
 
@@ -34,6 +47,7 @@ body{
     margin: 0;
     font-size: 18px;
     font-weight: bold;
+<<<<<<< HEAD
     color: white;
 }
 
@@ -41,12 +55,23 @@ body{
     font-size: 13px;
     opacity: 0.9;
     color: white;
+=======
+}
+
+.nav-title span {
+    font-size: 12px;
+    opacity: 0.9;
+>>>>>>> 25a080709bca478e6155f49e30df650173faeb15
 }
 
 .nav-links {
     display: flex;
     align-items: center;
+<<<<<<< HEAD
     gap: 20px;
+=======
+    gap: 15px;
+>>>>>>> 25a080709bca478e6155f49e30df650173faeb15
 }
 
 .nav-links a {
@@ -78,6 +103,7 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
+<<<<<<< HEAD
     margin-top: 0 !important;
     color: #0369a1 !important;
     font-size: 28px !important;
@@ -86,6 +112,14 @@ body{
 .hero-circle {
     width: 150px;
     height: 150px;
+=======
+    background-color: #dbeafe; 
+}
+
+.hero-circle {
+    width: 160px;
+    height: 160px;
+>>>>>>> 25a080709bca478e6155f49e30df650173faeb15
     border-radius: 50%;
     border: 3px solid #3b82f6;
     display: flex;
@@ -96,14 +130,23 @@ body{
 }
 
 .hero-circle i {
+<<<<<<< HEAD
     font-size: 70px;
+=======
+    font-size: 75px;
+>>>>>>> 25a080709bca478e6155f49e30df650173faeb15
     color: #2563eb;
 }
 
 .main-container h1 {
     color: #0369a1;
+<<<<<<< HEAD
     font-size: 28px;
     font-weight: bold;
+=======
+    font-size: 30px;
+    font-weight: 700;
+>>>>>>> 25a080709bca478e6155f49e30df650173faeb15
     margin: 0 0 12px 0;
 }
 

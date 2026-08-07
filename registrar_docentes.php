@@ -14,7 +14,11 @@ if(isset($_POST['guardar'])){
 
     if(mysqli_query($conexion, $sql)){
 
+<<<<<<< HEAD
        $id_docente_creado = mysqli_insert_id($conexion);
+=======
+        $id_docente_creado = mysqli_insert_id($conexion);
+>>>>>>> 25a080709bca478e6155f49e30df650173faeb15
 
        if(!empty($id_huella)){
             $fecha_actual = date("Y-m-d");

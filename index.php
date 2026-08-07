@@ -10,7 +10,14 @@
 
     <?php include("navbar.php"); ?>
 
+<<<<<<< HEAD
     <main class="main-container">
+=======
+    <?php include("navbar.php"); ?>
+
+    <main class="main-container">
+        <!-- Contenido Central -->
+>>>>>>> 25a080709bca478e6155f49e30df650173faeb15
         <div class="hero-circle">
             <i class="fa-solid fa-user-check"></i>
         </div>
