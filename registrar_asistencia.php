@@ -4,51 +4,38 @@ include("conexion.php");
 
 if(isset($_POST['registrar'])){
 
-   $codigo = $_POST['id_huella'];
+   $id_docente = $_POST['id_huella'];
 
-    $buscar = mysqli_query($conexion, "SELECT * FROM docentes WHERE codigo='$codigo'");
+    $buscar = mysqli_query($conexion, "SELECT * FROM docentes WHERE id_docente='$id_docente'");
 
     if(mysqli_num_rows($buscar) > 0){
 
         $docente = mysqli_fetch_assoc($buscar);
-
-        $docente_id = $docente['id'];
+        $nombre_completo = $docente['nombre'] . " " . $docente['apellido'];
 
         $fecha = date("Y-m-d");
         $hora = date("H:i:s");
 
-       $turno_id = $docente['turno_id'];
+        $turno_id = $docente['turno_id'];
 
-            $consulta_turno = mysqli_query(
-         $conexion,
-       "SELECT * FROM turnos WHERE id='$turno_id'"
-        );
+        $consulta_turno = mysqli_query( $conexion, "SELECT * FROM turnos WHERE id='$turno_id'" );
 
-         $turno = mysqli_fetch_assoc($consulta_turno);
+        $turno = mysqli_fetch_assoc($consulta_turno);
 
         $hora_tolerancia = $turno['hora_tolerancia'];
 
         if($hora > $hora_tolerancia){
          $estado = "Tarde";
-    }else{
-    $estado = "Presente";
-}
+         }else{
+            $estado = "Presente";
+            }
 
-        //mysqli_query($conexion,
-        $buscar_asistencia = mysqli_query(
-    $conexion,
-    "SELECT * FROM asistencias
-    WHERE docente_id='$docente_id'
-    AND fecha='$fecha'"
-);
+    
+    $buscar_asistencia = mysqli_query(
+    $conexion, "SELECT * FROM asistencias WHERE docente_id='$docente_id' AND fecha='$fecha'" );
 
 if(mysqli_num_rows($buscar_asistencia)==0){
-
-    mysqli_query($conexion,
-    "INSERT INTO asistencias
-    (docente_id,fecha,entrada,estado)
-    VALUES
-    ('$docente_id','$fecha','$hora','$estado')");
+    mysqli_query($conexion, "INSERT INTO asistencias (docente_id,fecha,entrada,estado) VALUES ('$docente_id','$fecha','$hora','$estado')");
 
     echo "<h3>Entrada registrada</h3>";
 
@@ -59,10 +46,7 @@ if(mysqli_num_rows($buscar_asistencia)==0){
     if($asistencia['salida']==""){
 
         mysqli_query(
-            $conexion,
-            "UPDATE asistencias
-            SET salida='$hora'
-            WHERE id=".$asistencia['id']
+            $conexion, "UPDATE asistencias SET salida='$hora' WHERE id=".$asistencia['id']
         );
 
         echo "<h3>Salida registrada</h3>";

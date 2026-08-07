@@ -8,16 +8,41 @@ if(isset($_POST['guardar'])){
     $apellido = $_POST['apellido'];
     $telefono = $_POST['telefono'];
     $email = $_POST['email'];
+    $id_huella = $_POST['id_huella'];
     
-    $sql = "INSERT INTO docentes
-    (DNI , nombre, apellido, teléfono, email)
-    VALUES
-    ( '$dni' , '$nombre' , '$apellido' , '$telefono' , '$email' )";
+    $sql = "INSERT INTO docentes (DNI , nombre, apellido, teléfono, email) VALUES ( '$dni' , '$nombre' , '$apellido' , '$telefono' , '$email' )";
 
     if(mysqli_query($conexion, $sql)){
-        echo "<p>Docente registrado con éxito.</p>";
+
+       $id_docente_creado = mysqli_insert_id($conexion);
+
+       if(!empty($id_huella)){
+            $fecha_actual = date("Y-m-d");
+            mysqli_query($conexion, "INSERT INTO huella_digital (id_huella, fecha_registro) VALUES ('$id_huella', '$fecha_actual')");
+        }
+
+        if(isset($_POST['materia']) && is_array($_POST['materia'])){
+            for($i = 0; $i < count($_POST['materia']); $i++){
+
+                $nom_materia = $_POST['materia'][$i];
+                $turno = $_POST['turno'][$i];
+                $curso = $_POST['curso'][$i];
+                $division = $_POST['division'][$i];
+                $curso_completo = $curso . " " . $division;
+                $entrada = $_POST['entrada'][$i];
+                $salida = $_POST['salida'][$i];
+
+                if(!empty($nom_materia)){
+                    $sql_materia = "INSERT INTO materia (nombre, turno, curso, horario_inicio, horario_finalizacion) VALUES ('$nom_materia', '$turno', '$curso_completo', '$entrada', '$salida')";
+
+                    mysqli_query($conexion, $sql_materia);
+                }
+            }
+        }
+
+        echo "<p style='color: green;'>Docente, huella y horarios registrados con éxito.</p>";
     } else {
-        echo "<p>Error al guardar: " . mysqli_error($conexion) . "</p>";
+        echo "<p style='color: red;'>Error al guardar: " . mysqli_error($conexion) . "</p>";
     }
 }
 ?>
@@ -27,6 +52,7 @@ if(isset($_POST['guardar'])){
 <head>
     <title>Docentes</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 <?php include("navbar.php"); ?>
@@ -87,6 +113,15 @@ if(isset($_POST['guardar'])){
         <label>Materia</label>
         <input type="text" name="materia[]">
     </div>
+
+    <div class="campo">
+        <label>Turno</label>
+         <select name="turno[]">
+            <option value="Mañana">Mañana</option>
+            <option value="Tarde">Tarde</option>
+            <option value="Vespertino">Vespertino</option>
+        </select>
+     </div>
 
     <div class="campo">
         <label>Curso</label>
