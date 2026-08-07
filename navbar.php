@@ -4,7 +4,7 @@
 
 <div class="navbar">
     <div class="nav-brand">
-        <img src="logo_epet20.jpg" alt="Epet N 20" class="nav-logo">
+        <img src="logo_epet.png" alt="Epet N 20" class="nav-logo">
         <div class="nav-title">
             <h2>Epet N 20</h2>
             <span>Sistema de asistencia</span>
