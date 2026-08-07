@@ -6,28 +6,107 @@ body{
     font-size:16px;
 }
 
-
-
-.navbar{
-    background-color:#0d47a1;
-    padding:15px;
-    display:flex;
-    justify-content:center;
-    gap:30px;
+.navbar {
+    background-color: #004fb6;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.navbar a{
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-    transition:0.3s;
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
 }
 
-.navbar a:hover{
-    color:#ffd54f;
+.nav-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
 }
 
+.nav-title h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
 
+.nav-title span {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.nav-links a.active {
+    background-color: #38b6ff;
+    color: white;
+}
+
+.nav-links a:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #dbeafe; 
+}
+
+.hero-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 3px solid #3b82f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: transparent;
+}
+
+.hero-circle i {
+    font-size: 75px;
+    color: #2563eb;
+}
+
+.main-container h1 {
+    color: #0369a1;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+}
+
+.underline {
+    width: 100px;
+    height: 4px;
+    background-color: #0284c7;
+    border-radius: 2px;
+}
 
 h1{
     text-align:center;

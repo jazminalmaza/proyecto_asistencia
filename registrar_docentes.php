@@ -52,6 +52,7 @@ if(isset($_POST['guardar'])){
 <head>
     <title>Docentes</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 <?php include("navbar.php"); ?>
