@@ -1,5 +1,13 @@
 <?php
+session_start();
 include("conexion.php");
+
+$mensaje = "";
+
+if (isset($_SESSION['mensaje'])) {
+    $mensaje = $_SESSION['mensaje'];
+    unset($_SESSION['mensaje']);
+}
 
 if(isset($_POST['guardar'])){
 
@@ -43,10 +51,14 @@ if(isset($_POST['guardar'])){
                 }
             }
 
-            echo "<p style='color: green;'>Docente y horarios registrados con éxito.</p>";
-        } else {
-            echo "<p style='color: red;'>Error al guardar docente: " . mysqli_error($conexion) . "</p>";
-        }
+            $_SESSION['mensaje'] = "<div class='alerta exito'><i class='fa-solid fa-circle-check'></i> Docente y horarios registrados con éxito.</div>";
+    } else {
+        $_SESSION['mensaje'] = "<div class='alerta error'><i class='fa-solid fa-circle-exclamation'></i> Error al guardar docente: " . mysqli_error($conexion) . "</div>";
+    }
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+
     }
 ?>
 
@@ -62,8 +74,9 @@ if(isset($_POST['guardar'])){
 <h1>Registrar Docente</h1>
 <div class="contenedor">
 
-
 <div class="formulario">
+
+    <?php echo $mensaje; ?>
 
     <form method="POST">
 
@@ -71,12 +84,12 @@ if(isset($_POST['guardar'])){
 
             <div class="campo">
                 <label>Nombre</label>
-                <input type="text" name="nombre">
+                <input type="text" name="nombre" required>
             </div>
 
             <div class="campo">
                 <label>Apellido</label>
-                <input type="text" name="apellido">
+                <input type="text" name="apellido" required>
             </div>
 
         </div>
@@ -85,12 +98,12 @@ if(isset($_POST['guardar'])){
 
             <div class="campo">
                 <label>DNI</label>
-                <input type="text" name="dni">
+                <input type="text" name="dni" required>
             </div>
 
             <div class="campo">
                 <label>Teléfono</label>
-                <input type="text" name="telefono">
+                <input type="text" name="telefono" required>
             </div>
 
         </div>
@@ -99,12 +112,12 @@ if(isset($_POST['guardar'])){
 
             <div class="campo">
                 <label>Email</label>
-                <input type="email" name="email">
+                <input type="email" name="email" required>
             </div>
 
             <div class="campo">
                 <label>Código de huella</label>
-                <input type="number" name="id_huella">
+                <input type="number" name="id_huella" required>
             </div>
 
         </div>
@@ -124,12 +137,12 @@ if(isset($_POST['guardar'])){
 
                     <div class="campo">
                         <label>Materia</label>
-                        <input type="text" name="materia[]">
+                        <input type="text" name="materia[]" required>
                     </div>
 
                     <div class="campo">
                         <label>Turno</label>
-                        <select name="turno[]">
+                        <select name="turno[]" required>
                             <option value="Mañana">Mañana</option>
                             <option value="Tarde">Tarde</option>
                             <option value="Vespertino">Vespertino</option>
@@ -138,7 +151,7 @@ if(isset($_POST['guardar'])){
 
                     <div class="campo">
                         <label>Curso</label>
-                        <select name="curso[]">
+                        <select name="curso[]" required>
                             <option>1°</option>
                             <option>2°</option>
                             <option>3°</option>
@@ -150,7 +163,7 @@ if(isset($_POST['guardar'])){
 
                     <div class="campo">
                         <label>División</label>
-                        <select name="division[]">
+                        <select name="division[]" required>
                             <option>1°</option>
                             <option>2°</option>
                             <option>3°</option>
@@ -166,12 +179,12 @@ if(isset($_POST['guardar'])){
 
                     <div class="campo">
                         <label>Entrada</label>
-                        <input type="time" name="entrada[]">
+                        <input type="time" name="entrada[]" required>
                     </div>
 
                     <div class="campo">
                         <label>Salida</label>
-                        <input type="time" name="salida[]">
+                        <input type="time" name="salida[]" required>
                     </div>
 
                 </div>
@@ -190,6 +203,19 @@ if(isset($_POST['guardar'])){
 </div>
 
 <script>
+const alerta = document.querySelector('.alerta');
+
+        if (alerta) {
+            setTimeout(() => {
+                alerta.style.transition = 'opacity 0.5s ease';
+                alerta.style.opacity = '0';
+                
+                setTimeout(() => {
+                    alerta.remove();
+                }, 500);
+            }, 4000);
+        }
+
 document.getElementById('btn-agregar').addEventListener('click', function() {
     var contenedor = document.getElementById('contenedor-horarios');
     var primerBloque = document.querySelector('.bloque-horario');
@@ -211,6 +237,7 @@ function eliminarHorario(boton) {
         bloque.remove();
     }
 }
+
 </script>
 
 </body>

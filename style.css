@@ -20,7 +20,6 @@ body{
     display: flex;
     align-items: center;
     gap: 15px;
-    gap: 12px;
     color: white;
 }
 
@@ -43,16 +42,10 @@ body{
     color: white;
 }
 
-.nav-title span {
-    font-size: 12px;
-    opacity: 0.9;
-}
-
 .nav-links {
     display: flex;
     align-items: center;
     gap: 20px;
-    gap: 15px;
 }
 
 .nav-links a {
@@ -90,12 +83,6 @@ body{
 }
 
 .hero-circle {
-    width: 150px;
-    height: 150px;
-    background-color: #dbeafe; 
-}
-
-.hero-circle {
     width: 160px;
     height: 160px;
     border-radius: 50%;
@@ -109,14 +96,11 @@ body{
 
 .hero-circle i {
     font-size: 70px;
-    font-size: 75px;
     color: #2563eb;
 }
 
 .main-container h1 {
     color: #0369a1;
-    font-size: 28px;
-    font-weight: bold;
     font-size: 30px;
     font-weight: 700;
     margin: 0 0 12px 0;
@@ -248,4 +232,27 @@ button:hover{
 .campo input{
     width:100%;
     box-sizing:border-box;
+}
+
+.alerta {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alerta.exito {
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.alerta.error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
 }
