@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-08-2026 a las 19:58:03
+-- Tiempo de generación: 10-08-2026 a las 19:02:59
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -53,15 +53,24 @@ CREATE TABLE `docentes` (
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `docentes`
+--
+
+INSERT INTO `docentes` (`id_docente`, `DNI`, `nombre`, `apellido`, `teléfono`, `email`) VALUES
+(5, 48512687, 'Guadalupe', 'Medel', 2147483647, 'guada@gmail.com'),
+(6, 48749707, 'Sofia', 'Lencina', 2147483647, 'sofiaepet20@gmail.com'),
+(7, 48749707, 'Sofia', 'Lencina', 2147483647, 'sofiaepet20@gmail.com');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `huella_digital`
+-- Estructura de tabla para la tabla `docentes_materias`
 --
 
-CREATE TABLE `huella_digital` (
-  `id_huella` int(11) NOT NULL,
-  `fecha_registro` date NOT NULL
+CREATE TABLE `docentes_materias` (
+  `id_docente` int(70) NOT NULL,
+  `id_materia` int(70) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -107,6 +116,15 @@ CREATE TABLE `materia` (
   `horario_finalizacion` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `materia`
+--
+
+INSERT INTO `materia` (`id_materia`, `nombre`, `turno`, `curso`, `horario_inicio`, `horario_finalizacion`) VALUES
+(2, 'Dibujo', 'Mañana', '1° 1°', '01:30:00', '03:00:00'),
+(3, 'Inglés', 'Vespertino', '4° 1°', '03:40:00', '04:40:00'),
+(4, 'Inglés', 'Mañana', '3° 3°', '16:00:00', '17:20:00');
+
 -- --------------------------------------------------------
 
 --
@@ -139,10 +157,10 @@ ALTER TABLE `docentes`
   ADD PRIMARY KEY (`id_docente`);
 
 --
--- Indices de la tabla `huella_digital`
+-- Indices de la tabla `docentes_materias`
 --
-ALTER TABLE `huella_digital`
-  ADD PRIMARY KEY (`id_huella`);
+ALTER TABLE `docentes_materias`
+  ADD PRIMARY KEY (`id_materia`);
 
 --
 -- Indices de la tabla `jefes_de_preceptores`
@@ -182,13 +200,7 @@ ALTER TABLE `asistencia`
 -- AUTO_INCREMENT de la tabla `docentes`
 --
 ALTER TABLE `docentes`
-  MODIFY `id_docente` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `huella_digital`
---
-ALTER TABLE `huella_digital`
-  MODIFY `id_huella` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_docente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `jefes_de_preceptores`
@@ -200,7 +212,7 @@ ALTER TABLE `jefes_de_preceptores`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `prosecretario`
