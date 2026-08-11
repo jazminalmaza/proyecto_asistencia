@@ -1,3 +1,39 @@
+<?php
+session_start();
+include("conexion.php");
+
+$error = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $usuario = $_POST["usuario"];
+    $contraseña = $_POST["contraseña"];
+
+    $sql = "SELECT * FROM prosecretario 
+            WHERE usuario = '$usuario' 
+            AND contraseña = '$contraseña'";
+
+    $resultado = mysqli_query($conexion, $sql);
+
+    if (mysqli_num_rows($resultado) == 1) {
+
+        $datos = mysqli_fetch_assoc($resultado);
+
+        $_SESSION["id_prosecretario"] = $datos["id_prosecretario"];
+        $_SESSION["usuario"] = $datos["usuario"];
+        $_SESSION["nombre"] = $datos["nombre"];
+        $_SESSION["apellido"] = $datos["apellido"];
+
+        header("Location: index.php");
+        exit();
+
+    } else {
+
+        $error = "Usuario o contraseña incorrectos.";
+
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
