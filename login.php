@@ -5,7 +5,7 @@
     <title>Inicio de sesión</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="login-page">
 
 <div class="container">
 
