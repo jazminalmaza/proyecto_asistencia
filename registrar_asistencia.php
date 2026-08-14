@@ -54,7 +54,6 @@ if(isset($_POST['registrar'])){
 
         if (mysqli_num_rows($res_asistencia) == 0) {
             
-            // REGISTRAR ENTRADA
            $sql_insert = "INSERT INTO asistencia (fecha, nombre_docente, materia, hora_ingreso, estado) 
                VALUES ('$fecha', '$nombre_completo', '$nombre_materia', '$hora_actual', '$estado')";
             
@@ -74,7 +73,6 @@ if(isset($_POST['registrar'])){
 
             if (empty($asistencia['hora_egreso']) || $asistencia['hora_egreso'] == "00:00:00") {
                 
-                // REGISTRAR SALIDA
                 $id_asistencia = $asistencia['id_asistencia'];
                 $sql_update = "UPDATE asistencia 
                                SET hora_egreso = '$hora_actual' 
