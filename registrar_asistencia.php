@@ -2,81 +2,105 @@
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 include("conexion.php");
 
+$mensaje = "";
+
 if(isset($_POST['registrar'])){
 
-   $id_docente = $_POST['id_huella'];
+   $id_huella = intval($_POST['id_huella']);
 
-    $buscar = mysqli_query($conexion, "SELECT * FROM docentes WHERE id_docente='$id_docente'");
+    $sql_docente = "SELECT * FROM docentes WHERE id_huella = $id_huella";
+    $res_docente = mysqli_query($conexion, $sql_docente);
 
-    if(mysqli_num_rows($buscar) > 0){
+    if(mysqli_num_rows($res_docente) > 0){
 
-        $docente = mysqli_fetch_assoc($buscar);
+        $docente = mysqli_fetch_assoc($res_docente);
+        $id_docente = isset($docente['id_docente']) ? $docente['id_docente'] : (isset($docente['id']) ? $docente['id'] : 0);
         $nombre_completo = $docente['nombre'] . " " . $docente['apellido'];
 
         $fecha = date("Y-m-d");
-        $hora = date("H:i:s");
+        $hora_actual = date("H:i:s");
 
-        $turno_id = $docente['turno_id'];
+       $nombre_materia = "Sin Materia";
+       $hora_inicio = "08:00:00";
 
-        $consulta_turno = mysqli_query( $conexion, "SELECT * FROM turnos WHERE id='$turno_id'" );
+        if ($id_docente > 0) {
+            $sql_materia = "SELECT m.* FROM materia m
+                            INNER JOIN docentes_materias dm ON m.id_materia = dm.id_materia
+                            WHERE dm.id_docente = $id_docente
+                            LIMIT 1";
+            $res_materia = mysqli_query($conexion, $sql_materia);
 
-        $turno = mysqli_fetch_assoc($consulta_turno);
+            if ($res_materia && $row_materia = mysqli_fetch_assoc($res_materia)) {
+                $nombre_materia = $row_materia['nombre'];
+                $hora_inicio = $row_materia['horario_inicio'];
+            }
+        }
 
-        $hora_tolerancia = $turno['hora_tolerancia'];
+        $timestamp_actual = strtotime($hora_actual);
+        $timestamp_inicio = strtotime($hora_inicio);
+        $diferencia_minutos = ($timestamp_actual - $timestamp_inicio) / 60;
 
-        if($hora > $hora_tolerancia){
-         $estado = "Tarde";
-         }else{
+        if ($diferencia_minutos < -15) {
+            $estado = "Adelantado";
+        } elseif ($diferencia_minutos <= 10) {
             $estado = "Presente";
+        } else {
+            $estado = "Tarde";
+        }
+
+        $sql_asistencia = "SELECT * FROM asistencia 
+                   WHERE nombre_docente = '$nombre_completo' AND fecha = '$fecha'";
+        $res_asistencia = mysqli_query($conexion, $sql_asistencia);
+
+        if (mysqli_num_rows($res_asistencia) == 0) {
+            
+            // REGISTRAR ENTRADA
+           $sql_insert = "INSERT INTO asistencia (fecha, nombre_docente, materia, hora_ingreso, estado) 
+               VALUES ('$fecha', '$nombre_completo', '$nombre_materia', '$hora_actual', '$estado')";
+            
+            if (mysqli_query($conexion, $sql_insert)) {
+                $mensaje = "<div class='alerta exito'>
+                                <h3><i class='fa-solid fa-circle-check'></i> Entrada registrada</h3>
+                                <p><strong>Docente:</strong> $nombre_completo</p>
+                                <p><strong>Materia:</strong> $nombre_materia</p>
+                                <p><strong>Hora:</strong> $hora_actual</p>
+                                <p><strong>Estado:</strong> $estado</p>
+                            </div>";
             }
 
-    
-    $buscar_asistencia = mysqli_query(
-    $conexion, "SELECT * FROM asistencias WHERE docente_id='$docente_id' AND fecha='$fecha'" );
+        } else {
 
-if(mysqli_num_rows($buscar_asistencia)==0){
-    mysqli_query($conexion, "INSERT INTO asistencias (docente_id,fecha,entrada,estado) VALUES ('$docente_id','$fecha','$hora','$estado')");
+            $asistencia = mysqli_fetch_assoc($res_asistencia);
 
-    echo "<h3>Entrada registrada</h3>";
+            if (empty($asistencia['hora_egreso']) || $asistencia['hora_egreso'] == "00:00:00") {
+                
+                // REGISTRAR SALIDA
+                $id_asistencia = $asistencia['id_asistencia'];
+                $sql_update = "UPDATE asistencia 
+                               SET hora_egreso = '$hora_actual' 
+                               WHERE id_asistencia = $id_asistencia";
 
-}else{
+                if (mysqli_query($conexion, $sql_update)) {
+                    $mensaje = "<div class='alerta exito'>
+                                    <h3><i class='fa-solid fa-circle-check'></i> Salida registrada</h3>
+                                    <p><strong>Docente:</strong> $nombre_completo</p>
+                                    <p><strong>Hora de salida:</strong> $hora_actual</p>
+                                </div>";
+                }
 
-    $asistencia = mysqli_fetch_assoc($buscar_asistencia);
+            } else {
+                $mensaje = "<div class='alerta error'>
+                                <h3><i class='fa-solid fa-circle-exclamation'></i> Aviso</h3>
+                                <p>El docente $nombre_completo ya registró entrada y salida el día de hoy.</p>
+                            </div>";
+            }
+        }
 
-    if($asistencia['salida']==""){
-
-        mysqli_query(
-            $conexion, "UPDATE asistencias SET salida='$hora' WHERE id=".$asistencia['id']
-        );
-
-        echo "<h3>Salida registrada</h3>";
-
-    }else{
-
-        echo "<h3>Ya registró entrada y salida hoy</h3>";
-
-    }
-
-}
-
-        echo "<h3>Asistencia registrada correctamente</h3>";
-
-        echo "Docente: ".
-        $docente['nombre']." ".
-        $docente['apellido'];
-
-        echo "<br>";
-
-        echo "Hora: ".$hora;
-
-        echo "<br>";
-
-        echo "Estado: ".$estado;
-
-    }else{
-
-        echo "<h3>ID de huella no encontrado</h3>";
-
+    } else {
+        $mensaje = "<div class='alerta error'>
+                        <h3><i class='fa-solid fa-circle-exclamation'></i> Error</h3>
+                        <p>Código de huella no encontrado.</p>
+                    </div>";
     }
 }
 ?>
@@ -86,22 +110,28 @@ if(mysqli_num_rows($buscar_asistencia)==0){
 <head>
     <title>Registrar Asistencia</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 <?php include("navbar.php"); ?>
 <h1>Registrar Asistencia</h1>
 
-<form method="POST">
+<div class="contenedor">
+    <div class="formulario">
+        
+        <?php echo $mensaje; ?>
 
-    ID Huella:
+        <form method="POST">
+            <div class="campo">
+                <label>Ingrese Código de Huella</label>
+                <input type="number" name="id_huella" autofocus required>
+            </div>
 
-    <input type="number" name="id_huella" required>
-
-    <br><br>
-
-    <button type="submit" name="registrar"> Registrar huella </button>
-
-</form>
+            <br>
+            <button type="submit" name="registrar">Registrar Marcar</button>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

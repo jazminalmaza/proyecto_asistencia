@@ -1,34 +1,38 @@
 <?php
 include("conexion.php");
 
-$id = $_GET['id'];
-
-if(isset($_POST['guardar'])){
-
-    $entrada = $_POST['entrada'];
-    $salida = $_POST['salida'];
-    $estado = $_POST['estado'];
-
-    mysqli_query(
-        $conexion,
-        "UPDATE asistencia
-        SET hora_ingreso='$entrada', hora_egreso='$salida', estado='$estado'
-        WHERE id_asistencia='$id' "
-    );
-
-   header("Location: ver_asistencia.php");
-   exit;
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    header("Location: ver_asistencia.php");
+    exit;
 }
 
-$sql = "SELECT a.*, d.nombre, d.apellido
-            FROM asistencia a
-            INNER JOIN docentes d
-            ON a.docentes_id=d.id
-            WHERE a.id='$id' ";
+$id = intval($_GET['id']);
 
-$resultado = mysqli_query($conexion,$sql);
+if (isset($_POST['guardar'])) {
+    $entrada = !empty($_POST['entrada']) ? "'" . mysqli_real_escape_string($conexion, $_POST['entrada']) . "'" : "NULL";
+    $salida = !empty($_POST['salida']) ? "'" . mysqli_real_escape_string($conexion, $_POST['salida']) . "'" : "NULL";
+    $estado = mysqli_real_escape_string($conexion, $_POST['estado']);
 
+    $sql_update = "UPDATE asistencia
+                   SET hora_ingreso = $entrada, 
+                       hora_egreso = $salida, 
+                       estado = '$estado'
+                   WHERE id_asistencia = $id";
+
+    mysqli_query($conexion, $sql_update);
+
+    header("Location: ver_asistencia.php");
+    exit;
+}
+
+$sql = "SELECT * FROM asistencia WHERE id_asistencia = $id";
+$resultado = mysqli_query($conexion, $sql);
 $fila = mysqli_fetch_assoc($resultado);
+
+if (!$fila) {
+    header("Location: ver_asistencia.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,60 +40,46 @@ $fila = mysqli_fetch_assoc($resultado);
 <head>
     <title>Editar Asistencia</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
+<?php include("navbar.php"); ?>
 <h1>Editar Asistencia</h1>
 
-<p>
+<div class="contenedor">
+    <div class="formulario">
+        <h2><?php echo htmlspecialchars($fila['nombre_docente']); ?> - <?php echo htmlspecialchars($fila['materia']); ?></h2>
 
-<?php
-echo $fila['nombre']." ".$fila['apellido'];
-?>
+        <form method="POST">
+            <div class="fila">
+                <div class="campo">
+                    <label>Hora de entrada</label>
+                    <input type="time" name="entrada" value="<?php echo $fila['hora_ingreso']; ?>">
+                </div>
 
-</p>
+                <div class="campo">
+                    <label>Hora de salida</label>
+                    <input type="time" name="salida" value="<?php echo $fila['hora_egreso']; ?>">
+                </div>
+            </div>
 
-<form method="POST">
+            <div class="fila">
+                <div class="campo">
+                    <label>Estado</label>
+                    <select name="estado" required>
+                        <option value="Presente" <?php if ($fila['estado'] == "Presente") echo "selected"; ?>>Presente</option>
+                        <option value="Tarde" <?php if ($fila['estado'] == "Tarde") echo "selected"; ?>>Tarde</option>
+                        <option value="Ausente" <?php if ($fila['estado'] == "Ausente") echo "selected"; ?>>Ausente</option>
+                        <option value="Adelantado" <?php if ($fila['estado'] == "Adelantado") echo "selected"; ?>>Adelantado</option>
+                    </select>
+                </div>
+            </div>
 
-    Entrada:
-
-    <input type="time" name="entrada" value="<?php echo $fila['hora_ingreso']; ?>">
-
-    <br><br>
-
-    Salida:
-
-    <input type="time" name="salida" value="<?php echo $fila['hora_egreso']; ?>">
-
-    <br><br>
-
-    Estado:
-
-    <select name="estado">
-
-        <option <?php if($fila['estado']=="Presente") echo "selected"; ?>>
-        Presente
-        </option>
-
-        <option <?php if($fila['estado']=="Tarde") echo "selected"; ?>>
-        Tarde
-        </option>
-
-        <option <?php if($fila['estado']=="Ausente") echo "selected"; ?>>
-        Ausente
-        </option>
-
-        <option <?php if($fila['estado']=="Adelantado") echo "selected"; ?>>
-        Adelantado
-        </option>
-
-    </select>
-
-    <br><br>
-
-    <button type="submit" name="guardar"> Guardar </button>
-
-</form>
+            <br>
+            <button type="submit" name="guardar">Guardar cambios</button>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>
