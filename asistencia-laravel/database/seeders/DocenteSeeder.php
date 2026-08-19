@@ -19,7 +19,7 @@ class DocenteSeeder extends Seeder
             'apellido' => 'Medel',
             'telefono' => '2147483647',
             'email' => 'guada@gmail.com',
-            'id_huella' => null
+            'id_huella' => '1',
         ]);
 
         Docente::create([
