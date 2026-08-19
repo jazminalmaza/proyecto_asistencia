@@ -11,13 +11,12 @@ return new class extends Migration
     {
         Schema::create('docentes', function (Blueprint $table) {
             $table->id('id_docente');
-            $table->string('DNI')->nullable();
-            $table->string('nombre')->nullable();
-            $table->string('apellido')->nullable();
-            $table->string('telefono')->nullable();
-            $table->string('email')->nullable();
-            $table->string('id_huella')->nullable();
-            
+            $table->string('DNI' , 10);
+            $table->string('nombre' , 50);
+            $table->string('apellido' , 50);
+            $table->string('telefono' , 20);
+            $table->string('email' , 50);
+            $table->string('id_huella');
             $table->timestamps();
         });
     }
