@@ -13,11 +13,11 @@ return new class extends Migration
                   ->constrained('docentes', 'id_docente')
                   ->onDelete('cascade');
 
-            $table->foreignId('id_materia')
-                  ->constrained('materia', 'id_materia')
+            $table->foreignId('id_materias')
+                  ->constrained('materias', 'id_materias')
                   ->onDelete('cascade');
 
-            $table->primary(['id_docente', 'id_materia']);
+            $table->primary(['id_docente', 'id_materias']);
         });
     }
     public function down(): void
