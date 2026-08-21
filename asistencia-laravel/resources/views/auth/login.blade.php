@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Inicio de sesión</title>
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body class="login-page">
 
 <div class="container">
 
-    <img src="{{ asset('logo_epet.png') }}" alt="Logo EPET N°20" class="logo">
+    <img src="{{ asset('images/logo_epet.png') }}" alt="Logo EPET N°20" class="logo">
 
     <div class="heading">Sistema de Control de Asistencia</div>
 
