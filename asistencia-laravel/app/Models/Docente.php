@@ -6,5 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Docente extends Model
 {
-    //
+    protected $table = 'docentes';
+    
+    protected $primaryKey = 'id_docente';
+
+    protected $fillable = [
+        'DNI',
+        'nombre',
+        'apellido',
+        'telefono',
+        'email',
+        'id_huella',
+    ];
 }
