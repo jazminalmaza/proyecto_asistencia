@@ -21,5 +21,8 @@
         <a href="{{ route('asistencia.index') }}" class="{{ $route == 'asistencia.index' ? 'active' : '' }}">
             <i class="fa-solid fa-file-circle-plus"></i> Ver asistencias
         </a>
+        <a href="{{ route('usuarios.index') }}" class="{{ $route == 'usuarios.index' ? 'active' : '' }}">
+            <i class="fa-solid fa-user-shield"></i> Crear cuenta
+        </a>
     </div>
 </div>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\AsistenciaController;
-
+use App\Http\Controllers\UsuarioController;
 Route::get('/', function () {
     return redirect()->route('login');
 });
@@ -29,3 +29,9 @@ Route::get('/asistencia/registrar', [AsistenciaController::class, 'create'])->na
 Route::post('/asistencia', [AsistenciaController::class, 'store'])->name('asistencia.marcar');
 Route::get('/asistencia/editar', [AsistenciaController::class, 'edit'])->name('asistencia.edit');
 Route::put('/asistencia', [AsistenciaController::class, 'update'])->name('asistencia.update');
+
+
+Route::middleware(['auth'])->group(function () {
+Route::get('/crear-cuenta', [UsuarioController::class, 'index'])->name('usuarios.index');
+Route::post('/crear-cuenta', [UsuarioController::class, 'store'])->name('usuarios.store');
+});
