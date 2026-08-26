@@ -26,7 +26,7 @@
             <div class="fila">
                 <div class="campo">
                     <label>DNI</label>
-                    <input type="text" name="dni" required>
+                    <input type="text" name="DNI" required>
                 </div>
                 <div class="campo">
                     <label>Teléfono</label>

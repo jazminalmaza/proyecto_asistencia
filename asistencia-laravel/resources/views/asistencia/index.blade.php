@@ -30,7 +30,7 @@
         <th>Estado</th>
         <th>Acción</th>
     </tr>
-    @foreach($asistencia as $fila)
+    @foreach($asistencias as $fila)
     <tr>
         <td>{{ \Carbon\Carbon::parse($fila->fecha)->format('d/m/Y') }}</td>
         <td>{{ $fila->nombre_docente }}</td>

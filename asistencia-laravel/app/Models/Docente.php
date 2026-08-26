@@ -11,11 +11,21 @@ class Docente extends Model
     protected $primaryKey = 'id_docente';
 
     protected $fillable = [
-        'DNI',
-        'nombre',
-        'apellido',
-        'telefono',
-        'email',
-        'id_huella',
+    'DNI',
+    'nombre',
+    'apellido',
+    'telefono',
+    'email',
+    'id_huella',
     ];
+
+    public function materias()
+    {
+        return $this->belongsToMany(
+            Materia::class,
+            'docentes_materias',
+            'id_docente',
+            'id_materias'
+        );
+    }
 }
