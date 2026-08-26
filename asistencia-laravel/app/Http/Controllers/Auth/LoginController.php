@@ -44,4 +44,20 @@ class LoginController extends Controller
 
         return redirect('/login');
     }
+
+    protected function authenticated(Request $request, $user)
+{
+    if ($user->rol === 'prosecretario') {
+        return redirect()->route('prosecretario.index');
+    }
+
+    if ($user->rol === 'jefe_preceptores') {
+        return redirect()->route('jefe.index');
+    }
+}
+public function username()
+{
+    return 'name';
+}
+
 }

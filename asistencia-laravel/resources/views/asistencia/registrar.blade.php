@@ -23,13 +23,9 @@
 
         <form action="{{ route('asistencia.marcar') }}" method="POST">
             @csrf
-            <div class="campo">
-                <label>Ingrese Código de Huella</label>
-                <input type="number" name="id_huella" autofocus required>
-            </div>
-
-            <br>
-            <button type="submit">Registrar Marcar</button>
+            <label for="codigo_huella">Ingresar Código de Huella:</label>
+            <input type="text" name="codigo_huella" id="codigo_huella" autofocus required>
+            <button type="submit">Marcar Asistencia</button>
         </form>
     </div>
 </div>
