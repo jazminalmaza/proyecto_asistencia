@@ -20,8 +20,8 @@
     <form class="form" action="{{ route('login') }}" method="POST">
         @csrf
 
-        <input placeholder="Usuario" id="usuario" name="usuario" type="text" class="input" value="{{ old('usuario') }}" required>
-        <input placeholder="Contraseña" id="contraseña" name="contraseña" type="password" class="input" required>
+       <input placeholder="Usuario" id="usuario" name="name" type="text" class="input">
+<input placeholder="Contraseña" id="contraseña" name="password" type="password" class="input">
         
         <input value="Iniciar Sesión" type="submit" class="login-button"/>
     </form>

@@ -55,4 +55,9 @@ class LoginController extends Controller
         return redirect()->route('jefe.index');
     }
 }
+public function username()
+{
+    return 'name';
+}
+
 }

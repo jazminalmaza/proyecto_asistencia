@@ -29,3 +29,17 @@ Route::get('/asistencia/registrar', [AsistenciaController::class, 'create'])->na
 Route::post('/asistencia', [AsistenciaController::class, 'store'])->name('asistencia.marcar');
 Route::get('/asistencia/editar', [AsistenciaController::class, 'edit'])->name('asistencia.edit');
 Route::put('/asistencia', [AsistenciaController::class, 'update'])->name('asistencia.update');
+
+Route::middleware(['auth'])->group(function () {
+    
+    // Este apunta al index que YA TENÉS en la carpeta asistencia
+    Route::get('/prosecretario/dashboard', function () {
+        return view('asistencia.index'); 
+    })->name('prosecretario.index');
+
+    // Este va a apuntar al NUEVO index que vas a crear en la carpeta jefe
+    Route::get('/jefe/dashboard', function () {
+        return view('jefe.index'); 
+    })->name('jefe.index');
+
+});
