@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\AsistenciaController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -19,31 +21,11 @@ Route::get('/home', function () {
     return view('home');
 })->name('home');
 
-Route::get('/docentes/create', function () {
-    return view('docentes.create');
-})->name('docentes.create');
+Route::get('/docentes/create', [DocenteController::class, 'create'])->name('docentes.create');
+Route::post('/docentes', [DocenteController::class, 'store'])->name('docentes.store');
 
-Route::post('/docentes', function () {
-    return back()->with('exito', 'Docente guardado correctamente');
-})->name('docentes.store');
-
-Route::get('/asistencia', function () {
-    $asistencia = []; 
-    return view('asistencia.index', compact('asistencia'));
-})->name('asistencia.index');
-
-Route::get('/asistencia/registrar', function () {
-    return view('asistencia.registrar');
-})->name('asistencia.registrar');
-
-Route::post('/asistencia', function () {
-    return back()->with('exito', 'Asistencia marcada');
-})->name('asistencia.marcar');
-
-Route::get('/asistencia/editar', function () {
-    return view('asistencia.edit');
-})->name('asistencia.edit');
-
-Route::put('/asistencia', function () {
-    return back()->with('exito', 'Asistencia actualizada');
-})->name('asistencia.update');
+Route::get('/asistencia', [AsistenciaController::class, 'index'])->name('asistencia.index');
+Route::get('/asistencia/registrar', [AsistenciaController::class, 'create'])->name('asistencia.registrar');
+Route::post('/asistencia', [AsistenciaController::class, 'store'])->name('asistencia.marcar');
+Route::get('/asistencia/editar', [AsistenciaController::class, 'edit'])->name('asistencia.edit');
+Route::put('/asistencia', [AsistenciaController::class, 'update'])->name('asistencia.update');
