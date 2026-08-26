@@ -17,14 +17,14 @@
         <p style="color: red; text-align: center;">{{ $errors->first('error') }}</p>
     @endif
 
-    <form class="form" action="{{ route('login') }}" method="POST">
-        @csrf
+    <form class="form" action="{{ route('login') }}" method="POST" autocomplete="off">
+    @csrf
 
-       <input placeholder="Usuario" id="usuario" name="name" type="text" class="input">
-<input placeholder="Contraseña" id="contraseña" name="password" type="password" class="input">
-        
-        <input value="Iniciar Sesión" type="submit" class="login-button"/>
-    </form>
+    <input placeholder="Usuario" id="usuario" name="name" type="text" class="input" autocomplete="off">
+    <input placeholder="Contraseña" id="contraseña" name="password" type="password" class="input" autocomplete="new-password">
+
+    <input value="Iniciar Sesión" type="submit" class="login-button"/>
+</form>
 
 </div>
 
