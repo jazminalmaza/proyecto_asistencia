@@ -37,11 +37,10 @@ Route::post('/crear-cuenta', [UsuarioController::class, 'store'])->name('usuario
 }); 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/prosecretario/dashboard', function () {
-        return view('asistencia.index');
-    })->name('prosecretario.index');
-});
+    // Apunta al método index de AsistenciaController para que cargue la variable $asistencias
+    Route::get('/prosecretario/dashboard', [AsistenciaController::class, 'index'])->name('prosecretario.index');
 
     Route::get('/jefe/dashboard', function () {
         return view('jefe.index'); 
     })->name('jefe.index');
+});
