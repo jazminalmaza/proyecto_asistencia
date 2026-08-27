@@ -1,59 +1,66 @@
 @extends('layouts.app')
 
-@section('title', 'Ver Asistencias')
-
 @section('content')
-<h1>Listado de Asistencias</h1>
+<div class="card-consulta">
+    <div class="header-consulta">
+        <div class="icono-box">
+            <i class="fa-solid fa-clipboard-list"></i>
+        </div>
+        <div>
+            <h2>Consulta de Asistencias</h2>
+            <p>Visualice el listado de asistencias registradas.</p>
+        </div>
+    </div>
 
-<form method="GET" action="{{ route('asistencia.index') }}" class="buscar-fecha">
-    Fecha:
-    <input type="date" name="fecha" value="{{ request('fecha') }}">
-    <button type="submit">Buscar</button>
-</form>
+    <form method="GET" action="{{ route('asistencia.index') }}" class="filtros-box">
+        <div class="campo-filtro">
+            <label>Fecha</label>
+            <input type="date" name="fecha" value="{{ request('fecha') }}">
+        </div>
 
-<br>
-<div class="leyenda">
-    <span class="presente">● Presente</span>
-    <span class="tarde">● Tarde</span>
-    <span class="ausente">● Ausente</span>
-    <span class="adelantado">● Adelantado</span>
+        <div class="campo-filtro">
+            <label>Buscar docente</label>
+            <input type="text" name="docente" placeholder="Ingrese nombre o apellido" value="{{ request('docente') }}">
+        </div>
+
+        <button type="submit" class="btn-buscar">
+            <i class="fa-solid fa-magnifying-glass"></i> Buscar
+        </button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Docente</th>
+                <th>Materia</th>
+                <th>Entrada</th>
+                <th>Salida</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($asistencias as $fila)
+                <tr>
+                    <td>{{ \Carbon\Carbon::parse($fila->fecha)->format('d/m/Y') }}</td>
+                    <td>{{ $fila->nombre_docente }}</td>
+                    <td>{{ $fila->materia }}</td>
+                    <td>{{ $fila->hora_ingreso ?? '-' }}</td>
+                    <td>{{ $fila->hora_egreso ?? '-' }}</td>
+                    <td>
+                        <span class="badge-estado {{ strtolower($fila->estado) }}">
+                            {{ $fila->estado }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="{{ route('asistencia.edit', ['id' => $fila->id_asistencia]) }}" class="btn-editar">
+                            <i class="fa-solid fa-pen"></i> Editar
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
-
-<br>
-<table>
-    <tr>
-        <th>Fecha</th>
-        <th>Docente</th>
-        <th>Materia</th>
-        <th>Entrada</th>
-        <th>Salida</th>
-        <th>Estado</th>
-        <th>Acción</th>
-    </tr>
-    @foreach($asistencias as $fila)
-    <tr>
-        <td>{{ \Carbon\Carbon::parse($fila->fecha)->format('d/m/Y') }}</td>
-        <td>{{ $fila->nombre_docente }}</td>
-        <td>{{ $fila->materia }}</td>
-        <td>{{ $fila->hora_ingreso ?? '-' }}</td>
-        <td>{{ $fila->hora_egreso ?? '-' }}</td>
-        <td>
-            @if($fila->estado == 'Presente')
-                <span class="presente">Presente</span>
-            @elseif($fila->estado == 'Tarde')
-                <span class="tarde">Tarde</span>
-            @elseif($fila->estado == 'Ausente')
-                <span class="ausente">Ausente</span>
-            @elseif($fila->estado == 'Adelantado')
-                <span class="adelantado">Adelantado</span>
-            @endif
-        </td>
-        <td>
-            <a href="{{ route('asistencia.edit', ['id' => $fila->id_asistencia]) }}" class="btn-editar">
-                <i class="fa-solid fa-pen"></i> Editar
-            </a>
-        </td>
-    </tr>
-    @endforeach
-</table>
 @endsection
