@@ -17,11 +17,13 @@
         <p style="color: red; text-align: center;">{{ $errors->first('error') }}</p>
     @endif
 
-   <form class="form" action="{{ route('login') }}" method="POST">
+   <form class="form" action="{{ route('login') }}" method="POST" autocomplete="off">
     @csrf
 
     <input placeholder="Usuario" id="usuario" name="login_username" type="text" class="input" value="{{ old('login_username') }}" required autofocus autocomplete="off">
-    <input placeholder="Contraseña" id="contraseña" name="login_password" type="password" class="input" required autocomplete="new-password">
+    
+    <!-- Input de contraseña camuflado como texto para bloquear a Chrome -->
+    <input placeholder="Contraseña" id="contraseña" name="login_password" type="text" class="input" required autocomplete="off" onfocus="this.type='password'">
 
     <input value="Iniciar Sesión" type="submit" class="login-button"/>
 </form>

@@ -60,4 +60,12 @@ public function username()
     return 'name';
 }
 
+protected function credentials(Request $request)
+    {
+        return [
+            'name' => $request->input('login_username'),
+            'password' => $request->input('login_password'),
+        ];
+    }
+
 }
