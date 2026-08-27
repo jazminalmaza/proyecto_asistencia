@@ -2,15 +2,32 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->call(UsersTableSeeder::class);
-        $this->call(DocenteSeeder::class);
+        // Usuario secretario / prosecretario
+        User::updateOrCreate(
+            ['name' => 'secretario'],
+            [
+                'email' => 'secretario@epet20.edu.ar',
+                'password' => Hash::make('epet20'),
+                'rol' => 'prosecretario',
+            ]
+        );
+
+        // Usuario jefe
+        User::updateOrCreate(
+            ['name' => 'jefe'],
+            [
+                'email' => 'jefe@epet20.edu.ar',
+                'password' => Hash::make('epet20'),
+                'rol' => 'jefe_preceptores',
+            ]
+        );
     }
 }
