@@ -39,18 +39,7 @@
                     @error('password') <span style="color: red; font-size: 13px;">{{ $message }}</span> @enderror
                 </div>
 
-                <div>
-                    <label style="font-weight: bold; color: #0d47a1; display: block; margin-bottom: 5px;">DNI *</label>
-                    <input type="text" name="dni" value="{{ old('dni') }}" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
-                    @error('dni') <span style="color: red; font-size: 13px;">{{ $message }}</span> @enderror
-                </div>
-
-                <div style="grid-column: span 2;">
-                    <label style="font-weight: bold; color: #0d47a1; display: block; margin-bottom: 5px;">Email *</label>
-                    <input type="email" name="email" value="{{ old('email') }}" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
-                    @error('email') <span style="color: red; font-size: 13px;">{{ $message }}</span> @enderror
-                </div>
-            </div>
+               
 
             <div style="text-align: right; margin-top: 20px;">
                 <button type="submit" style="background-color: #1976d2; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 15px;">
@@ -69,8 +58,7 @@
                 <tr style="background-color: #f0f4f8; border-bottom: 2px solid #ccc;">
                     <th style="padding: 10px;">Rol</th>
                     <th style="padding: 10px;">Usuario</th>
-                    <th style="padding: 10px;">DNI</th>
-                    <th style="padding: 10px;">Email</th>
+             
                 </tr>
             </thead>
             <tbody>
@@ -78,12 +66,11 @@
                     <tr style="border-bottom: 1px solid #eee;">
                         <td style="padding: 10px;"><strong>{{ $user->rol }}</strong></td>
                         <td style="padding: 10px;">{{ $user->usuario }}</td>
-                        <td style="padding: 10px;">{{ $user->dni }}</td>
-                        <td style="padding: 10px;">{{ $user->email }}</td>
+                    
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" style="padding: 15px; text-align: center; color: #666;">No hay usuarios registrados.</td>
+                        <td colspan="2" style="padding: 15px; text-align: center; color: #666;">No hay usuarios registrados.</td>
                     </tr>
                 @endforelse
             </tbody>

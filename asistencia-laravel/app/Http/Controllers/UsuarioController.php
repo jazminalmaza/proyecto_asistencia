@@ -11,16 +11,11 @@ class UsuarioController extends Controller
 {
     public function index()
     {
-        // Consultamos prosecretarios y jefes de preceptores para unificarlos en la tabla de la vista
-        $prosecretarios = DB::table('prosecretario')
-            ->select(DB::raw("'Prosecretario' as rol"), 'usuario', 'dni', 'email');
+       $usuarios = DB::table('users')
+        ->select('rol', 'name as usuario')
+        ->get();
 
-        $jefes = DB::table('jefe_preceptors')
-            ->select(DB::raw("'Jefe de preceptores' as rol"), 'usuario', 'dni', 'email');
-
-        $usuarios = $prosecretarios->union($jefes)->get();
-
-        return view('usuarios.create', compact('usuarios'));
+    return view('usuarios.create', compact('usuarios'));
     }
 
     public function store(Request $request)
