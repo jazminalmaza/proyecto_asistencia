@@ -87,5 +87,27 @@ class AsistenciaController extends Controller
 
             return back()->with('exito', 'Salida registrada a las ' . $horaActual);
         }
-    }    
+    }
+    
+    public function edit(Request $request){
+    $id = $request->query('id') ?? $request->id ?? array_key_first($request->query());
+
+    $asistencia = Asistencia::findOrFail($id);
+
+    return view('asistencia.edit', compact('asistencia'));
+    }
+
+public function update(Request $request){
+    $id = $request->query('id') ?? $request->id ?? array_key_first($request->query());
+
+    $asistencia = Asistencia::findOrFail($id);
+
+    $asistencia->update([
+        'hora_ingreso' => $request->entrada,
+        'hora_egreso'  => $request->salida,
+        'estado'       => $request->estado,
+    ]);
+
+    return redirect()->route('asistencia.index')->with('exito', 'Asistencia actualizada correctamente.');
+    }
 }

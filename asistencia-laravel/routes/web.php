@@ -28,7 +28,7 @@ Route::get('/asistencia', [AsistenciaController::class, 'index'])->name('asisten
 Route::get('/asistencia/registrar', [AsistenciaController::class, 'create'])->name('asistencia.registrar');
 Route::post('/asistencia', [AsistenciaController::class, 'store'])->name('asistencia.marcar');
 Route::get('/asistencia/editar', [AsistenciaController::class, 'edit'])->name('asistencia.edit');
-Route::put('/asistencia', [AsistenciaController::class, 'update'])->name('asistencia.update');
+Route::put('/asistencia/actualizar', [AsistenciaController::class, 'update'])->name('asistencia.update');
 
 
 Route::middleware(['auth'])->group(function () {

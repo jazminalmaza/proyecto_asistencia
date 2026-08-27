@@ -49,7 +49,9 @@
             @endif
         </td>
         <td>
-            <a href="{{ route('asistencia.edit', $fila->id_asistencia) }}">Editar</a>
+            <a href="{{ route('asistencia.edit', ['id' => $fila->id_asistencia]) }}" class="btn-editar">
+                <i class="fa-solid fa-pen"></i> Editar
+            </a>
         </td>
     </tr>
     @endforeach

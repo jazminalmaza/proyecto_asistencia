@@ -15,12 +15,12 @@
             <div class="fila">
                 <div class="campo">
                     <label>Hora de entrada</label>
-                    <input type="time" name="entrada" value="{{ $asistencia->hora_ingreso }}">
+                    <input type="time" name="entrada" step="1" value="{{ $asistencia->hora_ingreso }}">
                 </div>
 
                 <div class="campo">
                     <label>Hora de salida</label>
-                    <input type="time" name="salida" value="{{ $asistencia->hora_egreso }}">
+                    <input type="time" name="salida" step="1" value="{{ $asistencia->hora_egreso }}">
                 </div>
             </div>
 
