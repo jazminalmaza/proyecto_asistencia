@@ -34,16 +34,14 @@ Route::put('/asistencia', [AsistenciaController::class, 'update'])->name('asiste
 Route::middleware(['auth'])->group(function () {
 Route::get('/crear-cuenta', [UsuarioController::class, 'index'])->name('usuarios.index');
 Route::post('/crear-cuenta', [UsuarioController::class, 'store'])->name('usuarios.store');
-Route::middleware(['auth'])->group(function () {
-    
-    // Este apunta al index que YA TENÉS en la carpeta asistencia
-    Route::get('/prosecretario/dashboard', function () {
-        return view('asistencia.index'); 
-    })->name('prosecretario.index');
+}); 
 
-    // Este va a apuntar al NUEVO index que vas a crear en la carpeta jefe
+Route::middleware(['auth'])->group(function () {
+    Route::get('/prosecretario/dashboard', function () {
+        return view('asistencia.index');
+    })->name('prosecretario.index');
+});
+
     Route::get('/jefe/dashboard', function () {
         return view('jefe.index'); 
     })->name('jefe.index');
-
-});
