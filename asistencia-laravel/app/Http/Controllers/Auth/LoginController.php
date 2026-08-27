@@ -16,26 +16,33 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $request->validate([
-            'usuario' => 'required',
-            'contraseña' => 'required',
-        ]);
+{
+    $request->validate([
+        'name' => 'required',
+        'password' => 'required',
+    ]);
 
-        $user = Prosecretario::where('usuario', $request->usuario)->first();
+    // Buscar al usuario en la tabla de usuarios
+    $user = \App\Models\User::where('name', $request->name)->first();
 
-        if ($user && ($user->contraseña === $request->contraseña || Hash::check($request->contraseña, $user->contraseña))) {
-            Auth::login($user);
-            $request->session()->regenerate();
+    if ($user && Hash::check($request->password, $user->password)) {
+        Auth::login($user);
+        $request->session()->regenerate();
 
-            return redirect()->intended('/dashboard');
+        // Redirección según rol
+        if ($user->rol === 'prosecretario') {
+            return redirect()->route('prosecretario.index');
+        } elseif ($user->rol === 'jefe_preceptores') {
+            return redirect()->route('jefe.index');
         }
 
-        return back()->withErrors([
-            'error' => 'Usuario o contraseña incorrectos.',
-        ])->withInput();
+        return redirect()->intended('/dashboard');
     }
 
+    return back()->withErrors([
+        'error' => 'Usuario o contraseña incorrectos.',
+    ])->withInput($request->only('name'));
+}
     public function logout(Request $request)
     {
         Auth::logout();
@@ -45,19 +52,5 @@ class LoginController extends Controller
         return redirect('/login');
     }
 
-    protected function authenticated(Request $request, $user)
-{
-    if ($user->rol === 'prosecretario') {
-        return redirect()->route('prosecretario.index');
-    }
-
-    if ($user->rol === 'jefe_preceptores') {
-        return redirect()->route('jefe.index');
-    }
-}
-public function username()
-{
-    return 'name';
-}
-
+   
 }

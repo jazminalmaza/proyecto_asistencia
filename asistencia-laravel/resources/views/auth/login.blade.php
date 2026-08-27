@@ -13,19 +13,18 @@
 
     <div class="heading">Sistema de Control de Asistencia</div>
 
-    @if ($errors->has('error'))
-        <p style="color: red; text-align: center;">{{ $errors->first('error') }}</p>
-    @endif
+    @if ($errors->any())
+    <p style="color: red; text-align: center;">{{ $errors->first() }}</p>
+@endif
 
    <form class="form" action="{{ route('login') }}" method="POST">
     @csrf
 
-    <input placeholder="Usuario" id="usuario" name="login_username" type="text" class="input" value="{{ old('login_username') }}" required autofocus autocomplete="off">
-    <input placeholder="Contraseña" id="contraseña" name="login_password" type="password" class="input" required autocomplete="new-password">
+    <input placeholder="Usuario" id="usuario" name="name" type="text" class="input" value="{{ old('name') }}" required autofocus>
+    <input placeholder="Contraseña" id="contraseña" name="password" type="password" class="input" required>
 
     <input value="Iniciar Sesión" type="submit" class="login-button"/>
 </form>
-
 </div>
 
 </body>
