@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Docente;
 use App\Models\Asistencia;
+use App\Models\Materia;
 use Carbon\Carbon;
 
 class AsistenciaController extends Controller
@@ -90,11 +91,13 @@ class AsistenciaController extends Controller
     }
     
     public function edit(Request $request){
-    $id = $request->query('id') ?? $request->id ?? array_key_first($request->query());
+        $id = $request->query('id') ?? $request->id ?? array_key_first($request->query());
 
-    $asistencia = Asistencia::findOrFail($id);
+        $asistencia = Asistencia::findOrFail($id);
 
-    return view('asistencia.edit', compact('asistencia'));
+        $materias = Materia::select('nombre')->distinct()->get();
+
+        return view('asistencia.edit', compact('asistencia', 'materias'));
     }
 
 public function update(Request $request){
@@ -103,6 +106,7 @@ public function update(Request $request){
     $asistencia = Asistencia::findOrFail($id);
 
     $asistencia->update([
+        'materia'      => $request->materia,
         'hora_ingreso' => $request->entrada,
         'hora_egreso'  => $request->salida,
         'estado'       => $request->estado,

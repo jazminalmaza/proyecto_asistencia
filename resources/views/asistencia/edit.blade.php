@@ -14,6 +14,18 @@
             @method('PUT')
             <div class="fila">
                 <div class="campo">
+                    <label for="materia">Materia</label>
+                    <input type="text" name="materia" id="materia" list="lista-materias" value="{{ old('materia', $asistencia->materia) }}" required>
+                    <datalist id="lista-materias">
+                        @if(isset($materias))
+                            @foreach($materias as $mat)
+                                <option value="{{ $mat->nombre ?? $mat }}">
+                            @endforeach
+                        @endif
+                    </datalist>
+                </div>
+                
+                <div class="campo">
                     <label>Hora de entrada</label>
                     <input type="time" name="entrada" step="1" value="{{ $asistencia->hora_ingreso }}">
                 </div>
