@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre' , 70);
             $table->string('turno' , 20);
             $table->string('curso' , 10);
+            $table->string('division', 10);
             $table->time('horario_inicio');
             $table->time('horario_finalizacion');
             $table->timestamps();
