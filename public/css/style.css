@@ -466,3 +466,43 @@ button:hover{
     object-fit: contain;
     margin: 0 auto 15px;
 }
+
+.card-consulta.card-asistencia {
+    width: 100%;
+    max-width: 1050px;
+}
+
+.campo-asistencia {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.campo-asistencia label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0d47a1;
+}
+
+.campo-asistencia input {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 15px;
+    outline: none;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.acciones-asistencia {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.btn-buscar.btn-asistencia {
+    padding: 12px 28px;
+    font-size: 15px;
+    border-radius: 8px;
+}

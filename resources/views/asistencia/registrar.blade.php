@@ -3,30 +3,49 @@
 @section('title', 'Registrar Asistencia')
 
 @section('content')
-<h1>Registrar Asistencia</h1>
+<div class="card-consulta card-asistencia">
+    @if(session('exito'))
+        <div class="alerta exito">
+            <i class="fa-solid fa-circle-check"></i> {{ session('exito') }}
+        </div>
+    @endif
 
-<div class="contenedor">
-    <div class="formulario">
-        @if(session('exito'))
-            <div class="alerta exito">
-                <h3><i class="fa-solid fa-circle-check"></i> Éxito</h3>
-                <p>{{ session('exito') }}</p>
-            </div>
-        @endif
+    @if(session('error'))
+        <div class="alerta error">
+            <i class="fa-solid fa-circle-exclamation"></i> {{ session('error') }}
+        </div>
+    @endif
 
-        @if(session('error'))
-            <div class="alerta error">
-                <h3><i class="fa-solid fa-circle-exclamation"></i> Error</h3>
-                <p>{{ session('error') }}</p>
-            </div>
-        @endif
-
-        <form action="{{ route('asistencia.marcar') }}" method="POST">
-            @csrf
-            <label for="codigo_huella">Ingresar Código de Huella:</label>
-            <input type="text" name="codigo_huella" id="codigo_huella" autofocus required>
-            <button type="submit">Marcar Asistencia</button>
-        </form>
+    <div class="header-consulta">
+        <div class="icono-box">
+            <i class="fa-solid fa-fingerprint"></i>
+        </div>
+        <div>
+            <h2>Registrar Asistencia</h2>
+            <p>Escanee o ingrese el código de huella del docente</p>
+        </div>
     </div>
+
+    <form action="{{ route('asistencia.marcar') }}" method="POST">
+        @csrf
+        
+        <div class="campo-asistencia">
+            <label for="codigo_huella">Código de huella</label>
+            <input 
+                type="text" 
+                name="codigo_huella" 
+                id="codigo_huella" 
+                placeholder="Ingrese el código" 
+                autofocus 
+                required
+            >
+        </div>
+
+        <div class="acciones-asistencia">
+            <button type="submit" class="btn-buscar btn-asistencia">
+                <i class="fa-solid fa-circle-check"></i> Marcar Asistencia
+            </button>
+        </div>
+    </form>
 </div>
 @endsection
