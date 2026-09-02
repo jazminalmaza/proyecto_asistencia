@@ -12,11 +12,19 @@ class DocenteController extends Controller
 
     public function create()
     {
+        // probando
+        if (auth()->user()->rol !== 'prosecretario') {
+            return redirect()->route('home');
+        }//fin
         return view('docentes.create');
     }
 
     public function store(Request $request)
     {
+        // probando
+        if (auth()->user()->rol !== 'prosecretario') {
+            return redirect()->route('home');
+        }//fin
         $docente = Docente::create([
         'DNI' => $request->input('DNI', $request->input('dni')),
         'nombre' => $request->input('nombre'),

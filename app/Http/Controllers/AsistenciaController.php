@@ -91,6 +91,10 @@ class AsistenciaController extends Controller
     }
     
     public function edit(Request $request){
+        // probando
+        if (auth()->user()->rol !== 'jefe_preceptores') {
+            return redirect()->route('asistencia.index');
+        }//fin
         $id = $request->query('id') ?? $request->id ?? array_key_first($request->query());
 
         $asistencia = Asistencia::findOrFail($id);
@@ -101,6 +105,10 @@ class AsistenciaController extends Controller
     }
 
 public function update(Request $request){
+    // probando
+        if (auth()->user()->rol !== 'jefe_preceptores') {
+            return redirect()->route('asistencia.index');
+        }//fin
     $id = $request->query('id') ?? $request->id ?? array_key_first($request->query());
 
     $asistencia = Asistencia::findOrFail($id);

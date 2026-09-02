@@ -11,6 +11,10 @@ class UsuarioController extends Controller
 {
     public function index()
     {
+        // probando
+        if (auth()->user()->rol !== 'prosecretario') {
+            return redirect()->route('home');
+        }//fin
        $usuarios = DB::table('users')
         ->select('rol', 'name as usuario')
         ->get();
@@ -20,6 +24,10 @@ class UsuarioController extends Controller
 
     public function store(Request $request)
     {
+        // probando
+        if (auth()->user()->rol !== 'prosecretario') {
+            return redirect()->route('home');
+        }//fin
         // Elegir la tabla destino según el rol para validar duplicados
         $tabla = $request->rol === 'prosecretario' ? 'prosecretario' : 'jefe_preceptors';
 

@@ -15,14 +15,18 @@
         <a href="{{ route('home') }}" class="{{ $route == 'home' ? 'active' : '' }}">
             <i class="fa-solid fa-house"></i> Inicio
         </a>
+        @if(Auth::check() && Auth::user()->rol === 'prosecretario')
         <a href="{{ route('docentes.create') }}" class="{{ $route == 'docentes.create' ? 'active' : '' }}">
             <i class="fa-solid fa-user-plus"></i> Registrar docente
         </a>
+        @endif
         <a href="{{ route('asistencia.index') }}" class="{{ $route == 'asistencia.index' ? 'active' : '' }}">
             <i class="fa-solid fa-file-circle-plus"></i> Ver asistencias
         </a>
+        @if(Auth::check() && Auth::user()->rol === 'prosecretario')
         <a href="{{ route('usuarios.index') }}" class="{{ $route == 'usuarios.index' ? 'active' : '' }}">
             <i class="fa-solid fa-user-shield"></i> Crear cuenta
         </a>
+        @endif
     </div>
 </div>
