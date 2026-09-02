@@ -7,9 +7,8 @@
 <div class="contenedor">
     <div class="formulario">
         
-       <!-- Encabezado adentro del contenedor blanco -->
-        <div class="d-flex align-items-center mb-4">
-            <div class="me-3" style="background-color: #e8f0fe; color: #0d47a1; width: 60px; height: 60px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0;">
+        <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+            <div style="background-color: #e8f0fe; color: #0d47a1; width: 60px; height: 60px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; margin-right: 1rem;">
                 <i class="fa-solid fa-user-plus"></i>
             </div>
             <div>
