@@ -29,14 +29,8 @@ class LoginController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        // Redirección según rol
-        if ($user->rol === 'prosecretario') {
-            return redirect()->route('prosecretario.index');
-        } elseif ($user->rol === 'jefe_preceptores') {
-            return redirect()->route('jefe.index');
-        }
-
-        return redirect()->intended('/dashboard');
+       // Redirección al Inicio para todos
+    return redirect('/home');
     }
 
     return back()->withErrors([
@@ -49,7 +43,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/home');
     }
 
    
