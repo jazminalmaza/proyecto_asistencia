@@ -39,7 +39,6 @@
                 <th>Estado</th>
                 @if(auth()->user()->rol === 'jefe_de_preceptores')
                 <th>Acción</th>
-                @endif
             </tr>
         </thead>
         <tbody>
