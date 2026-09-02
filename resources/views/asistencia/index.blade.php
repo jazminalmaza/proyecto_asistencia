@@ -39,7 +39,7 @@
                 <th>Entrada</th>
                 <th>Salida</th>
                 <th>Estado</th>
-                @if(auth()->user()->rol === 'jefe_de_preceptores')
+                @if(auth()->check() && auth()->user()->rol === 'jefe_preceptores')
                 <th>Acción</th>
                 @endif
             </tr>
