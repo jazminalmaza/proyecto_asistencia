@@ -3,11 +3,21 @@
 @section('title', 'Crear Cuenta')
 
 @section('content')
-<h1>Crear Cuenta de Usuario</h1>
 
 <div class="contenedor">
     <div class="formulario">
         
+        <!-- Encabezado adentro del contenedor blanco -->
+        <div class="d-flex align-items-center mb-4">
+            <div class="p-3 rounded-4 me-3" style="background-color: #dbebe6; color: #1138a6; font-size: 1.8rem; display: flex; align-items: center; justify-content: center; width: 55px; height: 55px;">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+            <div>
+                <h2 style="color: #1138a6; font-weight: 800; font-family: 'Segoe UI', sans-serif; margin: 0; font-size: 1.8rem;">Crear Cuenta de Usuario</h2>
+                <p style="color: #6c757d; margin: 0; font-size: 0.95rem;">Complete el formulario para registrar un nuevo usuario.</p>
+            </div>
+        </div>
+
         @if(session('success'))
             <div class="alerta exito"><i class="fa-solid fa-circle-check"></i> {{ session('success') }}</div>
         @endif

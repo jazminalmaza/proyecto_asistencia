@@ -3,9 +3,20 @@
 @section('title', 'Registrar Docente')
 
 @section('content')
-<h1>Registrar Docente</h1>
+
 <div class="contenedor">
     <div class="formulario">
+<!-- Encabezado adentro del contenedor blanco -->
+        <div class="d-flex align-items-center mb-4">
+            <div class="me-3" style="background-color: #e8f0fe; color: #0d47a1; width: 60px; height: 60px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0;">
+                <i class="fa-solid fa-address-card"></i>
+            </div>
+            <div>
+                <h2 style="color: #1138a6; font-weight: 800; font-family: 'Segoe UI', sans-serif; margin: 0; font-size: 1.8rem;">Registrar Docente</h2>
+                <p style="color: #6c757d; margin: 0; font-size: 0.95rem;">Ingrese la información personal y los horarios del docente.</p>
+            </div>
+        </div>
+
         @if(session('exito'))
             <div class="alerta exito"><i class="fa-solid fa-circle-check"></i> {{ session('exito') }}</div>
         @endif
