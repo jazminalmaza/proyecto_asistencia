@@ -506,3 +506,14 @@ button:hover{
     font-size: 15px;
     border-radius: 8px;
 }
+
+.card-consulta.card-editar {
+    width: 100%;
+    max-width: 1050px;
+    box-sizing: border-box;
+}
+
+.card-editar select {
+    width: 100%;
+    box-sizing: border-box;
+}

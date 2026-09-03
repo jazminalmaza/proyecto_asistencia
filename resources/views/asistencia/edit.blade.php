@@ -3,11 +3,16 @@
 @section('title', 'Editar Asistencia')
 
 @section('content')
-<h1>Editar Asistencia</h1>
-
-<div class="contenedor">
-    <div class="formulario">
-        <h2>{{ $asistencia->nombre_docente }} - {{ $asistencia->materia }}</h2>
+<div class="card-consulta card-editar">
+    <div class="header-consulta">
+        <div class="icono-box">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </div>
+        <div>
+            <h2>Editar Asistencia</h2>
+            <p>{{ $asistencia->nombre_docente }} - {{ $asistencia->materia }}</p>
+        </div>
+    </div>
 
         <form action="{{ route('asistencia.update', $asistencia->id_asistencia) }}" method="POST">
             @csrf
