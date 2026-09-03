@@ -30,46 +30,43 @@
         </button>
     </form>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>Docente</th>
-                <th>Materia</th>
-                <th>Entrada</th>
-                <th>Salida</th>
-                <th>Estado</th>
-                @if(auth()->check() && auth()->user()->rol === 'jefe_preceptores')
+    <table style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Docente</th>
+            <th>Materia</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+            <th>Estado</th>
+            @if(Auth::check() && Auth::user()->rol === 'jefe_preceptores')
                 <th>Acción</th>
-                @endif
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($asistencias as $fila)
-                <tr>
-                    <td>{{ \Carbon\Carbon::parse($fila->fecha)->format('d/m/Y') }}</td>
-                    <td>{{ $fila->nombre_docente }}</td>
-                    <td>{{ $fila->materia }}</td>
-                    <td>{{ $fila->hora_ingreso ?? '-' }}</td>
-                    <td>{{ $fila->hora_egreso ?? '-' }}</td>
+            @endif
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($asistencias as $fila)
+            <tr>
+                <td>{{ \Carbon\Carbon::parse($fila->fecha)->format('d/m/Y') }}</td>
+                <td>{{ $fila->nombre_docente }}</td>
+                <td>{{ $fila->materia }}</td>
+                <td>{{ $fila->hora_ingreso ?? '-' }}</td>
+                <td>{{ $fila->hora_egreso ?? '-' }}</td>
+                <td>
+                    <span class="badge-estado {{ strtolower($fila->estado) }}">
+                        {{ $fila->estado }}
+                    </span>
+                </td>
+                @if(Auth::check() && Auth::user()->rol === 'jefe_preceptores')
                     <td>
-                        <span class="badge-estado {{ strtolower($fila->estado) }}">
-                            {{ $fila->estado }}
-                        </span>
-                    </td>
-
-
-                    <td>
-                        {{-- El botón Editar solo aparece si el rol es jefe_preceptores --}}
-                        @if(Auth::check() && Auth::user()->rol === 'jefe_preceptores')
                         <a href="{{ route('asistencia.edit', ['id' => $fila->id_asistencia]) }}" class="btn-editar">
                             <i class="fa-solid fa-pen"></i> Editar
                         </a>
-                        @endif
                     </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+                @endif
+            </tr>
+        @endforeach
+    </tbody>
+</table>
 </div>
 @endsection
