@@ -57,6 +57,8 @@
                             {{ $fila->estado }}
                         </span>
                     </td>
+
+
                     <td>
                         {{-- El botón Editar solo aparece si el rol es jefe_preceptores --}}
                         @if(Auth::check() && Auth::user()->rol === 'jefe_preceptores')
