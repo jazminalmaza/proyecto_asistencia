@@ -35,14 +35,14 @@
     </form>
 
     <div class="tabla-contenedor">
-        <table class="tabla-asistencias">
+        <table class="tabla-asistencias" style="width: 100%;">
             <thead>
                 <tr>
                     <th>DNI</th>
                     <th>Apellido y Nombre</th>
                     <th>Email</th>
                     <th>Teléfono</th>
-                    <th>Acción</th>
+                    <th style="text-align: center;">Acción</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,9 +53,35 @@
                         <td>{{ $docente->email }}</td>
                         <td>{{ $docente->telefono }}</td>
                         <td>
-                            <a href="{{ route('docentes.edit', $docente->id_docente) }}" class="btn-editar">
-                                <i class="fa-solid fa-pen"></i> Editar
-                            </a>
+                            <div style="display: flex; gap: 8px; align-items: center; justify-content: center;">
+                                <!-- Botón Editar -->
+                                <a href="{{ route('docentes.edit', $docente->id_docente ?? $docente->id) }}" class="btn-editar">
+                                    <i class="fa-solid fa-pen"></i> Editar
+                                </a>
+
+                                <!-- Botón Desactivar Docente -->
+                                <form action="{{ route('docentes.desactivar', $docente->id_docente ?? $docente->id) }}" method="POST" style="margin: 0;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" 
+                                            onclick="return confirm('¿Está seguro de que desea desactivar a este docente?')" 
+                                            style="background-color: #ffffff; color: #e6a100; border: 1.5px solid #e6a100; padding: 6px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px;">
+                                        Desactivar docente
+                                    </button>
+                                </form>
+
+                                <!-- Botón Borrar Docente (Tachito de basura) -->
+                                <form action="{{ route('docentes.destroy', $docente->id_docente ?? $docente->id) }}" method="POST" style="margin: 0;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" 
+                                            onclick="return confirm('¿Está seguro de que desea eliminar a este docente de forma permanente?')" 
+                                            title="Eliminar docente"
+                                            style="background-color: #dc3545; color: white; border: none; padding: 8px 10px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty

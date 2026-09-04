@@ -19,7 +19,7 @@
             <div class="alerta exito"><i class="fa-solid fa-circle-check"></i> {{ session('exito') }}</div>
         @endif
 
-        <form action="{{ route('docentes.update', $docente->id_docente) }}" method="POST">
+        <form action="{{ route('docentes.update', $docente->id_docente ?? $docente->id) }}" method="POST" id="form-editar-docente">
             @csrf
             @method('PUT')
 
@@ -116,9 +116,33 @@
 
             <br>
             <button type="button" id="btn-agregar">+ Agregar horario</button>
-            <br><br>
-            <button type="submit">Guardar cambios</button>
         </form>
+
+        <!-- BOTONES DE ACCIÓN PRINCIPALES AL FINAL -->
+        <div style="display: flex; gap: 10px; align-items: center; margin-top: 1.5rem; flex-wrap: wrap;">
+            <!-- Guardar Cambios -->
+            <button type="submit" form="form-editar-docente" style="background-color: #1138a6; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                Guardar cambios
+            </button>
+
+            <!-- Desactivar Docente (Amarillo) -->
+            <form action="{{ route('docentes.desactivar', $docente->id_docente ?? $docente->id) }}" method="POST" style="margin: 0;">
+                @csrf
+                @method('PATCH')
+                <button type="submit" onclick="return confirm('¿Está seguro de que desea desactivar a este docente?')" style="background-color: #ffc107; color: #000; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+    Desactivar docente
+</button>
+            </form>
+
+            <!-- Borrar Docente (Rojo) -->
+            <form action="{{ route('docentes.destroy', $docente->id_docente ?? $docente->id) }}" method="POST" style="margin: 0;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" onclick="return confirm('¿Está seguro de que desea eliminar a este docente de forma permanente?')" style="background-color: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                    Borrar docente
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -133,11 +157,11 @@
         <div class="fila">
             <div class="campo">
                 <label>Materia</label>
-                <input type="text" name="materia[]" required>
+                <input type="text" name="materia[]" required form="form-editar-docente">
             </div>
             <div class="campo">
                 <label>Turno</label>
-                <select name="turno[]" required>
+                <select name="turno[]" required form="form-editar-docente">
                     <option value="Mañana">Mañana</option>
                     <option value="Tarde">Tarde</option>
                     <option value="Vespertino">Vespertino</option>
@@ -145,14 +169,14 @@
             </div>
             <div class="campo">
                 <label>Curso</label>
-                <select name="curso[]" required>
+                <select name="curso[]" required form="form-editar-docente">
                     <option>1°</option><option>2°</option><option>3°</option>
                     <option>4°</option><option>5°</option><option>6°</option>
                 </select>
             </div>
             <div class="campo">
                 <label>División</label>
-                <select name="division[]" required>
+                <select name="division[]" required form="form-editar-docente">
                     <option>1°</option><option>2°</option><option>3°</option>
                     <option>4°</option><option>5°</option><option>6°</option>
                 </select>
@@ -161,11 +185,11 @@
         <div class="fila">
             <div class="campo">
                 <label>Entrada</label>
-                <input type="time" name="entrada[]" required>
+                <input type="time" name="entrada[]" required form="form-editar-docente">
             </div>
             <div class="campo">
                 <label>Salida</label>
-                <input type="time" name="salida[]" required>
+                <input type="time" name="salida[]" required form="form-editar-docente">
             </div>
         </div>
     </div>
@@ -188,18 +212,18 @@
 
     function eliminarMateriaBD(id, boton) {
         fetch(`/horarios/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            boton.closest('.bloque-horario').remove();
-        }
-    });
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                boton.closest('.bloque-horario').remove();
+            }
+        });
     }
 </script>
 @endsection
