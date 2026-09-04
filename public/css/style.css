@@ -517,3 +517,93 @@ button:hover{
     width: 100%;
     box-sizing: border-box;
 }
+
+.modal-logout-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-logout-box {
+    background: #ffffff;
+    width: 90%;
+    max-width: 380px;
+    padding: 25px 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    animation: modalPopIn 0.2s ease-out;
+}
+
+@keyframes modalPopIn {
+    from {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-logout-icon {
+    font-size: 2.8rem;
+    color: #dc2626;
+    margin-bottom: 10px;
+}
+
+.modal-logout-title {
+    margin: 0 0 8px 0;
+    font-size: 1.3rem;
+    color: #0f172a;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+}
+
+.modal-logout-text {
+    margin: 0 0 20px 0;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.modal-logout-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn-modal-cancelar, .btn-modal-aceptar {
+    padding: 9px 22px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-modal-cancelar {
+    background-color: #e2e8f0;
+    color: #334155;
+}
+
+.btn-modal-cancelar:hover {
+    background-color: #cbd5e1;
+}
+
+.btn-modal-aceptar {
+    background-color: #0d47a1;
+    color: #ffffff;
+}
+
+.btn-modal-aceptar:hover {
+    background-color: #0a3880;
+}
