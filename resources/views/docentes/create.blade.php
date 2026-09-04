@@ -123,14 +123,31 @@
         var primerBloque = document.querySelector('.bloque-horario');
         var nuevoBloque = primerBloque.cloneNode(true);
         nuevoBloque.querySelectorAll('input').forEach(input => input.value = '');
+
+        var divHeader = document.createElement('div');
+        divHeader.style.display = 'flex';
+        divHeader.style.justifyContent = 'flex-end';
+        divHeader.style.marginTop = '15px';
+        divHeader.style.marginBottom = '10px';
+
+        var btnEliminar = document.createElement('button');
+        btnEliminar.type = 'button';
+        btnEliminar.innerHTML = '<i class="fa-solid fa-trash"></i> Eliminar horario';
+        btnEliminar.style.backgroundColor = '#dc3545';
+        btnEliminar.style.color = '#fff';
+        btnEliminar.style.border = 'none';
+        btnEliminar.style.padding = '6px 12px';
+        btnEliminar.style.borderRadius = '5px';
+        btnEliminar.style.cursor = 'pointer';
+
+        btnEliminar.addEventListener('click', function() {
+            nuevoBloque.remove();
+        });
+
+        divHeader.appendChild(btnEliminar);
+        nuevoBloque.insertBefore(divHeader, nuevoBloque.firstChild);
+
         contenedor.appendChild(nuevoBloque);
     });
-
-    function eliminarHorario(boton) {
-        var bloque = boton.closest('.bloque-horario');
-        if (document.querySelectorAll('.bloque-horario').length > 1) {
-            bloque.remove();
-        }
-    }
 </script>
 @endsection
