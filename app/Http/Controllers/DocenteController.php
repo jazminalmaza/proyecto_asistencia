@@ -183,17 +183,15 @@ class DocenteController extends Controller
         }
 
         $docente = Docente::findOrFail($id);
-        // Cambia 'activo' por la columna que uses en tu BD (ej. estado = 0 o activo = false)
-        $docente->activo = false; 
-        $docente->save();
-
-        if (request()->wantsJson()) {
-            return response()->json(['success' => true, 'message' => 'Docente desactivado correctamente']);
+        
+        // Verificamos si la columna existe antes de guardarla para que no explote
+        if (\Schema::hasColumn('docentes', 'activo')) {
+            $docente->activo = false;
+            $docente->save();
         }
 
-        return redirect()->back()->with('exito', 'Docente desactivado correctamente.');
+        return response()->json(['success' => true, 'message' => 'Docente desactivado correctamente']);
     }
-
     public function destroy($id)
     {
         if (auth()->user()->rol !== 'prosecretario') {

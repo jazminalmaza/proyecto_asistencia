@@ -51,7 +51,8 @@
                         $idDocente = $docente->id_docente ?? $docente->id;
                         $esInactivo = isset($docente->activo) && !$docente->activo;
                     @endphp
-                    <tr id="fila-docente-{{ $idDocente }}" style="{{ $esInactivo ? 'background-color: #f2f2f2; opacity: 0.6;' : '' }}">
+                    <!-- Usamos una CLASE en lugar de ID para afectar a todas las filas repetidas de este docente -->
+                    <tr class="fila-docente-{{ $idDocente }}" style="{{ $esInactivo ? 'background-color: #f2f2f2; opacity: 0.6;' : '' }}">
                         <td>{{ $docente->DNI }}</td>
                         <td>{{ $docente->apellido }}, {{ $docente->nombre }}</td>
                         <td>{{ $docente->email }}</td>
@@ -93,7 +94,7 @@
 </div>
 
 <script>
-    // Función para desactivar (poner en gris automáticamente)
+    // Función para desactivar (pone en gris TODAS las filas de este docente)
     function desactivarDocente(id) {
         if (!confirm('¿Está seguro de que desea desactivar a este docente?')) return;
 
@@ -107,12 +108,13 @@
         })
         .then(response => {
             if (response.ok) {
-                const fila = document.getElementById(`fila-docente-${id}`);
-                if (fila) {
+                // Selecciona todas las filas que tengan esta clase
+                const filas = document.querySelectorAll(`.fila-docente-${id}`);
+                filas.forEach(fila => {
                     fila.style.transition = 'all 0.4s ease';
                     fila.style.backgroundColor = '#f2f2f2';
                     fila.style.opacity = '0.6';
-                }
+                });
             } else {
                 alert('No se pudo desactivar el docente.');
             }
@@ -120,7 +122,7 @@
         .catch(error => console.error('Error:', error));
     }
 
-    // Función para eliminar (desaparecer automáticamente)
+    // Función para eliminar (borra TODas las filas de este docente)
     function borrarDocente(id) {
         if (!confirm('¿Está seguro de que desea eliminar a este docente de forma permanente?')) return;
 
@@ -134,12 +136,12 @@
         })
         .then(response => {
             if (response.ok) {
-                const fila = document.getElementById(`fila-docente-${id}`);
-                if (fila) {
+                const filas = document.querySelectorAll(`.fila-docente-${id}`);
+                filas.forEach(fila => {
                     fila.style.transition = 'all 0.4s ease';
                     fila.style.opacity = '0';
                     setTimeout(() => fila.remove(), 400);
-                }
+                });
             } else {
                 alert('No se pudo eliminar el docente.');
             }
