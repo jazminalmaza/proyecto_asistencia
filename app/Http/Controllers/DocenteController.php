@@ -176,4 +176,41 @@ class DocenteController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function desactivar($id)
+    {
+        if (auth()->user()->rol !== 'prosecretario') {
+            return response()->json(['error' => 'No autorizado'], 403);
+        }
+
+        $docente = Docente::findOrFail($id);
+        // Cambia 'activo' por la columna que uses en tu BD (ej. estado = 0 o activo = false)
+        $docente->activo = false; 
+        $docente->save();
+
+        if (request()->wantsJson()) {
+            return response()->json(['success' => true, 'message' => 'Docente desactivado correctamente']);
+        }
+
+        return redirect()->back()->with('exito', 'Docente desactivado correctamente.');
+    }
+
+    public function destroy($id)
+    {
+        if (auth()->user()->rol !== 'prosecretario') {
+            return response()->json(['error' => 'No autorizado'], 403);
+        }
+
+        $docente = Docente::findOrFail($id);
+        
+        // Limpiamos la relación en la tabla pivote y eliminamos el docente
+        DB::table('docentes_materias')->where('id_docente', $id)->delete();
+        $docente->delete();
+
+        if (request()->wantsJson()) {
+            return response()->json(['success' => true, 'message' => 'Docente eliminado correctamente']);
+        }
+
+        return redirect()->back()->with('exito', 'Docente eliminado correctamente.');
+    }
+
 }

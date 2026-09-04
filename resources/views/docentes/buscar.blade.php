@@ -47,7 +47,11 @@
             </thead>
             <tbody>
                 @forelse($docentes as $docente)
-                    <tr>
+                    @php
+                        $idDocente = $docente->id_docente ?? $docente->id;
+                        $esInactivo = isset($docente->activo) && !$docente->activo;
+                    @endphp
+                    <tr id="fila-docente-{{ $idDocente }}" style="{{ $esInactivo ? 'background-color: #f2f2f2; opacity: 0.6;' : '' }}">
                         <td>{{ $docente->DNI }}</td>
                         <td>{{ $docente->apellido }}, {{ $docente->nombre }}</td>
                         <td>{{ $docente->email }}</td>
@@ -55,32 +59,24 @@
                         <td>
                             <div style="display: flex; gap: 8px; align-items: center; justify-content: center;">
                                 <!-- Botón Editar -->
-                                <a href="{{ route('docentes.edit', $docente->id_docente ?? $docente->id) }}" class="btn-editar">
+                                <a href="{{ route('docentes.edit', $idDocente) }}" class="btn-editar">
                                     <i class="fa-solid fa-pen"></i> Editar
                                 </a>
 
                                 <!-- Botón Desactivar Docente -->
-                                <form action="{{ route('docentes.desactivar', $docente->id_docente ?? $docente->id) }}" method="POST" style="margin: 0;">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" 
-                                            onclick="return confirm('¿Está seguro de que desea desactivar a este docente?')" 
-                                            style="background-color: #ffffff; color: #e6a100; border: 1.5px solid #e6a100; padding: 6px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px;">
-                                        Desactivar docente
-                                    </button>
-                                </form>
+                                <button type="button" 
+                                        onclick="desactivarDocente({{ $idDocente }})" 
+                                        style="background-color: #ffffff; color: #e6a100; border: 1.5px solid #e6a100; padding: 6px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px;">
+                                    Desactivar docente
+                                </button>
 
                                 <!-- Botón Borrar Docente (Tachito de basura) -->
-                                <form action="{{ route('docentes.destroy', $docente->id_docente ?? $docente->id) }}" method="POST" style="margin: 0;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" 
-                                            onclick="return confirm('¿Está seguro de que desea eliminar a este docente de forma permanente?')" 
-                                            title="Eliminar docente"
-                                            style="background-color: #dc3545; color: white; border: none; padding: 8px 10px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </form>
+                                <button type="button" 
+                                        onclick="borrarDocente({{ $idDocente }})" 
+                                        title="Eliminar docente"
+                                        style="background-color: #dc3545; color: white; border: none; padding: 8px 10px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -95,4 +91,60 @@
         </table>
     </div>
 </div>
+
+<script>
+    // Función para desactivar (poner en gris automáticamente)
+    function desactivarDocente(id) {
+        if (!confirm('¿Está seguro de que desea desactivar a este docente?')) return;
+
+        fetch(`/docentes/${id}/desactivar`, {
+            method: 'PATCH',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                const fila = document.getElementById(`fila-docente-${id}`);
+                if (fila) {
+                    fila.style.transition = 'all 0.4s ease';
+                    fila.style.backgroundColor = '#f2f2f2';
+                    fila.style.opacity = '0.6';
+                }
+            } else {
+                alert('No se pudo desactivar el docente.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Función para eliminar (desaparecer automáticamente)
+    function borrarDocente(id) {
+        if (!confirm('¿Está seguro de que desea eliminar a este docente de forma permanente?')) return;
+
+        fetch(`/docentes/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                const fila = document.getElementById(`fila-docente-${id}`);
+                if (fila) {
+                    fila.style.transition = 'all 0.4s ease';
+                    fila.style.opacity = '0';
+                    setTimeout(() => fila.remove(), 400);
+                }
+            } else {
+                alert('No se pudo eliminar el docente.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
 @endsection
