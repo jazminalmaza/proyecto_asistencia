@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="contenedor">
     <div class="formulario">
 
@@ -29,6 +30,13 @@
             <i class="fa-solid fa-magnifying-glass"></i> Buscar
         </button>
     </form>
+
+    @if(session('exito'))
+    <div class="alerta exito">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>{{ session('exito') }}</span>
+    </div>
+    @endif
 
     <table style="width: 100%; border-collapse: collapse;">
     <thead>
@@ -70,3 +78,16 @@
 </table>
 </div>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const alerta = document.querySelector('.alerta.exito');
+        if (alerta) {
+            setTimeout(() => {
+                alerta.style.transition = 'opacity 0.5s ease';
+                alerta.style.opacity = '0';
+                setTimeout(() => alerta.remove(), 500);
+            }, 3000); 
+        }
+    });
+</script>

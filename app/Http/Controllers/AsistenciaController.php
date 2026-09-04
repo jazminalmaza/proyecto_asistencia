@@ -107,7 +107,7 @@ class AsistenciaController extends Controller
 public function update(Request $request){
     // probando
         if (auth()->user()->rol !== 'jefe_preceptores') {
-            return redirect()->route('asistencia.index');
+            return redirect()->route('asistencia.index')->with('exito', 'Los cambios se guardaron correctamente.');;
         }//fin
     $id = $request->query('id') ?? $request->id ?? array_key_first($request->query());
 
