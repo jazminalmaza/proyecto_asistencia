@@ -58,13 +58,6 @@
             <h2>Horarios</h2>
             <div id="contenedor-horarios">
                 <div class="bloque-horario">
-                    <div class="header-bloque">
-                        <span class="titulo-bloque">Horario</span>
-                        <button type="button" class="btn-eliminar" onclick="eliminarHorario(this)">
-                            <i class="fa-solid fa-trash"></i> Eliminar
-                        </button>
-                    </div>
-
                     <div class="fila">
                         <div class="campo">
                             <label>Materia</label>
