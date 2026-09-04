@@ -61,6 +61,6 @@ class DocenteController extends Controller
             }
         }
 
-    return back()->with('exito', 'Docente guardado correctamente');
+    return redirect()->route('home')->with('exito', 'Docente guardado correctamente');
     }
 }
